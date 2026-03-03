@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANIMA: The American Animation Forum</title>
+<meta name="description" content="A national forum examining the artistic and structural trajectory of American animation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* === RESET & BASE === */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    --ink:       #0e0e0d;
+    --paper:     #f5f1ea;
+    --cream:     #ede9e0;
+    --warm-mid:  #c8b89a;
+    --accent:    #b84c2e;
+    --accent-dk: #8f3520;
+    --muted:     #6b6358;
+    --border:    #d4cfc6;
+    --rule:      rgba(14,14,13,0.12);
+    --ff-head:   'Playfair Display', Georgia, serif;
+    --ff-body:   'DM Sans', system-ui, sans-serif;
+    --ff-mono:   'DM Mono', monospace;
+    --max:       1080px;
+    --section-pad: clamp(4rem, 8vw, 7rem);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--ff-body);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* === TYPOGRAPHY === */
+  h1, h2, h3, h4 { font-family: var(--ff-head); line-height: 1.2; }
+  h1 { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 700; }
+  h2 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); font-weight: 600; }
+  h3 { font-size: clamp(1.15rem, 2.5vw, 1.5rem); font-weight: 600; }
+  h4 { font-size: 1rem; font-weight: 600; font-family: var(--ff-body); letter-spacing: 0.08em; text-transform: uppercase; }
+  p { margin-bottom: 1em; }
+  p:last-child { margin-bottom: 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  ul { list-style: none; }
+
+  /* === LAYOUT === */
+  .container { max-width: var(--max); margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 2.5rem); }
+  section { padding: var(--section-pad) 0; }
+  .section-label {
+    font-family: var(--ff-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+  .rule-accent {
+    width: 2.5rem;
+    height: 2px;
+    background: var(--accent);
+    margin: 1.25rem 0 1.75rem;
+  }
+
+  /* === BUTTONS === */
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.75rem;
+    font-family: var(--ff-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-align: center;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: 1.5px solid var(--accent);
+  }
+  .btn-primary:hover { background: var(--accent-dk); border-color: var(--accent-dk); text-decoration: none; color: #fff; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+  }
+  .btn-ghost:hover { background: var(--ink); color: var(--paper); text-decoration: none; }
+  .btn-outline-accent {
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+  }
+  .btn-outline-accent:hover { background: var(--accent); color: #fff; text-decoration: none; }
+
+  /* ===========================
+     NAV
+  =========================== */
+  #site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--paper);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    gap: 1rem;
+  }
+  .nav-brand {
+    font-family: var(--ff-head);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--ink);
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+  }
+  .nav-brand span { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-wrap: nowrap;
+  }
+  .nav-links a {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--muted);
+    padding: 0.4rem 0.6rem;
+    border-radius: 2px;
+    white-space: nowrap;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--ink); text-decoration: none; }
+  .nav-links .nav-cta {
+    background: var(--accent);
+    color: #fff;
+    padding: 0.4rem 0.9rem;
+    margin-left: 0.5rem;
+  }
+  .nav-links .nav-cta:hover { background: var(--accent-dk); color: #fff; }
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--ink);
+    transition: all 0.2s;
+  }
+  #mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: var(--paper);
+    border-top: 1px solid var(--border);
+    padding: 1rem 0 1.5rem;
+  }
+  #mobile-menu.open { display: flex; }
+  #mobile-menu a {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--ink);
+    padding: 0.6rem clamp(1.25rem,5vw,2.5rem);
+    border-bottom: 1px solid var(--rule);
+  }
+  #mobile-menu a:last-child { border-bottom: none; }
+  #mobile-menu a:hover { color: var(--accent); text-decoration: none; background: var(--cream); }
+  #mobile-menu .nav-cta { color: var(--accent); font-weight: 600; }
+
+  @media (max-width: 760px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+  }
+
+  /* ===========================
+     HERO
+  =========================== */
+  #hero {
+    background: var(--ink);
+    color: var(--paper);
+    padding: clamp(4rem, 10vw, 8rem) 0 clamp(3.5rem, 8vw, 6rem);
+    position: relative;
+    overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.02) 39px, rgba(255,255,255,0.02) 40px);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: var(--ff-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+  #hero h1 {
+    color: var(--paper);
+    max-width: 740px;
+    margin-bottom: 0.3rem;
+  }
+  #hero h1 em {
+    font-style: italic;
+    color: var(--warm-mid);
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: rgba(245,241,234,0.72);
+    max-width: 560px;
+    margin: 1.5rem 0 2.5rem;
+    line-height: 1.7;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  .hero-note {
+    font-family: var(--ff-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: rgba(245,241,234,0.4);
+    text-transform: uppercase;
+  }
+  .hero-note span { margin: 0 0.6rem; opacity: 0.4; }
+
+  /* ===========================
+     ABOUT
+  =========================== */
+  #about { background: var(--paper); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-body p { color: var(--muted); font-size: 1.03rem; }
+  .about-aside { display: flex; flex-direction: column; gap: 2rem; }
+  .about-box {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 1.75rem;
+    border-radius: 3px;
+  }
+  .about-box h4 { margin-bottom: 1rem; color: var(--muted); }
+  .about-box ul { display: flex; flex-direction: column; gap: 0.5rem; }
+  .about-box ul li {
+    font-size: 0.9rem;
+    padding-left: 1rem;
+    position: relative;
+    color: var(--ink);
+  }
+  .about-box ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.8rem;
+  }
+  .values-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1rem; }
+  .value-item { border-left: 2px solid var(--accent); padding-left: 1rem; }
+  .value-item strong { display: block; font-size: 0.88rem; font-family: var(--ff-body); font-weight: 600; margin-bottom: 0.2rem; }
+  .value-item p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+
+  @media (max-width: 680px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  /* ===========================
+     PILLARS
+  =========================== */
+  #pillars {
+    background: var(--ink);
+    color: var(--paper);
+    padding: var(--section-pad) 0;
+  }
+  #pillars .section-label { color: var(--warm-mid); }
+  #pillars h2 { color: var(--paper); margin-bottom: 2.5rem; }
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .pillar {
+    padding: 2.25rem 2rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+  }
+  .pillar:last-child { border-right: none; }
+  .pillar-num {
+    font-family: var(--ff-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .pillar h3 { color: var(--paper); font-size: 1.15rem; margin-bottom: 0.85rem; }
+  .pillar p { font-size: 0.88rem; color: rgba(245,241,234,0.65); line-height: 1.7; margin: 0; }
+
+  @media (max-width: 680px) {
+    .pillars-grid { grid-template-columns: 1fr; }
+    .pillar { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .pillar:last-child { border-bottom: none; }
+  }
+
+  /* ===========================
+     FORUM 2026
+  =========================== */
+  #forum-2026 { background: var(--cream); }
+  .forum-header { margin-bottom: 3rem; }
+  .forum-theme {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--ff-head);
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    padding: 0.75rem 1.5rem;
+    border-radius: 2px;
+    margin: 1rem 0 1.5rem;
+  }
+  .forum-overview { max-width: 640px; }
+  .forum-overview p { color: var(--muted); font-size: 1.02rem; }
+  .forum-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  .forum-box {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 3px;
+  }
+  .forum-box h4 { margin-bottom: 1.25rem; color: var(--muted); }
+  .forum-box ul { display: flex; flex-direction: column; gap: 0.6rem; }
+  .forum-box ul li {
+    font-size: 0.9rem;
+    padding-left: 1.1rem;
+    position: relative;
+  }
+  .forum-box ul li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 1.1rem;
+    line-height: 1.2;
+  }
+  .schedule-list { display: flex; flex-direction: column; gap: 0; }
+  .sched-item {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.9rem;
+  }
+  .sched-item:last-child { border-bottom: none; }
+  .sched-time {
+    font-family: var(--ff-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    white-space: nowrap;
+    min-width: 2.5rem;
+  }
+  .panels-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .panel-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+  .panel-num {
+    font-family: var(--ff-mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    white-space: nowrap;
+    margin-top: 0.2rem;
+    min-width: 2rem;
+  }
+  .panel-card h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+  .panel-card p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+  .panels-grid { display: flex; flex-direction: column; gap: 0.75rem; }
+
+  @media (max-width: 680px) {
+    .forum-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===========================
+     SPEAKERS
+  =========================== */
+  #speakers { background: var(--paper); }
+  .speakers-intro { max-width: 560px; margin-bottom: 2.5rem; color: var(--muted); }
+  .speakers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .speaker-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 1.75rem 1.5rem;
+    border-radius: 3px;
+  }
+  .speaker-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--border);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--ff-mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+  .speaker-card h3 { font-size: 1rem; margin-bottom: 0.2rem; }
+  .speaker-role {
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-family: var(--ff-mono);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .speaker-bio { font-size: 0.85rem; color: var(--muted); }
+  .speakers-note {
+    font-size: 0.88rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 1.25rem;
+    margin-top: 0.5rem;
+  }
+
+  /* ===========================
+     TICKETS
+  =========================== */
+  #tickets { background: var(--cream); }
+  .tickets-intro { max-width: 560px; margin-bottom: 2.5rem; color: var(--muted); }
+  .tiers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .tier-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .tier-card.featured {
+    border-color: var(--accent);
+    position: relative;
+  }
+  .tier-badge {
+    position: absolute;
+    top: -1px;
+    right: 1.5rem;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--ff-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 0 0 3px 3px;
+  }
+  .tier-name {
+    font-family: var(--ff-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+  .tier-price {
+    font-family: var(--ff-head);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .tier-includes { flex: 1; margin-bottom: 1.75rem; }
+  .tier-includes ul { display: flex; flex-direction: column; gap: 0.55rem; }
+  .tier-includes li {
+    font-size: 0.87rem;
+    padding-left: 1.1rem;
+    position: relative;
+    color: var(--ink);
+  }
+  .tier-includes li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.78rem;
+  }
+  .tier-cta { margin-top: auto; }
+  .tickets-notes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .tickets-notes li {
+    font-size: 0.84rem;
+    color: var(--muted);
+    padding-left: 1rem;
+    position: relative;
+  }
+  .tickets-notes li::before {
+    content: '※';
+    position: absolute;
+    left: 0;
+    color: var(--warm-mid);
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 680px) {
+    .tiers-grid { grid-template-columns: 1fr; }
+  }
+  @media (min-width: 681px) and (max-width: 900px) {
+    .tiers-grid { grid-template-columns: 1fr; max-width: 440px; }
+  }
+
+  /* ===========================
+     SPEAKER INTEREST
+  =========================== */
+  #speaker-interest { background: var(--paper); }
+  .interest-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .interest-text p { color: var(--muted); margin-bottom: 1.25rem; }
+  .fields-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+  .fields-list li {
+    font-size: 0.87rem;
+    color: var(--muted);
+    padding-left: 1rem;
+    position: relative;
+  }
+  .fields-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--warm-mid);
+    font-size: 0.8rem;
+  }
+  .interest-form-frame {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 2rem;
+  }
+  .interest-form-frame h4 { margin-bottom: 1.25rem; color: var(--muted); }
+  .form-link-btn {
+    display: block;
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    text-align: center;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--ff-body);
+    font-weight: 500;
+    font-size: 0.9rem;
+    border-radius: 2px;
+    transition: background 0.18s;
+  }
+  .form-link-btn:hover { background: #2a2a28; text-decoration: none; color: var(--paper); }
+  .form-note { font-size: 0.8rem; color: var(--muted); margin-top: 0.85rem; text-align: center; }
+
+  @media (max-width: 680px) {
+    .interest-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  /* ===========================
+     SUPPORTERS
+  =========================== */
+  #supporters {
+    background: var(--cream);
+    padding: calc(var(--section-pad) * 0.65) 0;
+  }
+  .supporters-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .supporters-left { flex: 1; min-width: 220px; }
+  .supporter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    padding: 0.6rem 1.1rem;
+    border-radius: 2px;
+    background: var(--paper);
+    margin-top: 0.85rem;
+  }
+  .supporter-tag-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  .supporter-name { font-weight: 600; font-size: 0.92rem; }
+  .supporter-type { font-family: var(--ff-mono); font-size: 0.68rem; color: var(--muted); }
+  .independence-note {
+    font-size: 0.84rem;
+    color: var(--muted);
+    font-style: italic;
+    max-width: 380px;
+    margin-top: 0.5rem;
+  }
+
+  /* ===========================
+     CONTACT
+  =========================== */
+  #contact { background: var(--ink); color: var(--paper); }
+  #contact .section-label { color: var(--warm-mid); }
+  #contact h2 { color: var(--paper); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 2.5rem;
+  }
+  .contact-email-link {
+    display: inline-block;
+    font-family: var(--ff-head);
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    color: var(--warm-mid);
+    border-bottom: 1px solid var(--warm-mid);
+    margin-top: 0.75rem;
+  }
+  .contact-email-link:hover { color: var(--paper); border-color: var(--paper); text-decoration: none; }
+  .contact-sub { font-size: 0.9rem; color: rgba(245,241,234,0.55); margin-top: 1.5rem; }
+  .mailing-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 3px;
+    padding: 2rem;
+  }
+  .mailing-box h4 { color: rgba(245,241,234,0.7); margin-bottom: 0.6rem; }
+  .mailing-box p { font-size: 0.9rem; color: rgba(245,241,234,0.55); margin-bottom: 1.25rem; }
+  .mailing-link {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    border-radius: 2px;
+    transition: background 0.18s;
+  }
+  .mailing-link:hover { background: var(--accent-dk); text-decoration: none; color: #fff; }
+
+  @media (max-width: 680px) {
+    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  /* ===========================
+     FOOTER
+  =========================== */
+  #site-footer {
+    background: #080807;
+    color: rgba(245,241,234,0.4);
+    padding: 2rem 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .footer-copy { font-size: 0.8rem; }
+  .footer-links {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+  }
+  .footer-links a {
+    font-size: 0.8rem;
+    color: rgba(245,241,234,0.4);
+    padding: 0.2rem 0.5rem;
+  }
+  .footer-links a:hover { color: var(--paper); text-decoration: none; }
+  .footer-links span { color: rgba(255,255,255,0.15); }
+
+  /* ===========================
+     CODE OF CONDUCT PAGE
+  =========================== */
+  #coc-page {
+    display: none;
+    min-height: 100vh;
+    background: var(--paper);
+  }
+  #coc-page.active { display: block; }
+  #main-site.hidden { display: none; }
+  .coc-header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 4rem 0 3rem;
+  }
+  .coc-header .section-label { color: var(--warm-mid); }
+  .coc-header h1 { color: var(--paper); font-size: clamp(1.8rem,4vw,2.8rem); }
+  .coc-effective {
+    font-family: var(--ff-mono);
+    font-size: 0.75rem;
+    color: rgba(245,241,234,0.45);
+    margin-top: 0.75rem;
+    letter-spacing: 0.06em;
+  }
+  .coc-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--warm-mid);
+    margin-top: 1.5rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: var(--ff-body);
+    padding: 0;
+  }
+  .coc-back:hover { color: var(--paper); }
+  .coc-body {
+    padding: 4rem 0 6rem;
+  }
+  .coc-content { max-width: 700px; }
+  .coc-section { margin-bottom: 3rem; }
+  .coc-section h2 {
+    font-size: 1.15rem;
+    font-family: var(--ff-body);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .coc-num {
+    font-family: var(--ff-mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    margin-right: 0.5rem;
+  }
+  .coc-section p { color: var(--muted); font-size: 0.95rem; }
+  .coc-section ul { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
+  .coc-section ul li {
+    font-size: 0.93rem;
+    color: var(--muted);
+    padding-left: 1.25rem;
+    position: relative;
+  }
+  .coc-section ul li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 1.1rem;
+    line-height: 1.2;
+  }
+  .coc-contact-box {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+  .coc-contact-box a { color: var(--accent); }
+
+  /* ===========================
+     ANIMATIONS
+  =========================== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-inner > * {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+  .hero-inner > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero-inner > *:nth-child(2) { animation-delay: 0.15s; }
+  .hero-inner > *:nth-child(3) { animation-delay: 0.25s; }
+  .hero-inner > *:nth-child(4) { animation-delay: 0.35s; }
+  .hero-inner > *:nth-child(5) { animation-delay: 0.45s; }
+</style>
+</head>
+<body>
+
+<!-- ===================== MAIN SITE ===================== -->
+<div id="main-site">
+
+  <!-- NAV -->
+  <nav id="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-brand" onclick="showMain(); return false;">
+          <span>ANIMA</span> Forum
+        </a>
+        <ul class="nav-links" role="list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#forum-2026">Forum 2026</a></li>
+          <li><a href="#speakers">Speakers</a></li>
+          <li><a href="#tickets">Tickets</a></li>
+          <li><a href="#supporters">Supporters</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="/code-of-conduct" onclick="showCoC(); return false;">Code of Conduct</a></li>
+          <li><a href="#tickets" class="btn nav-cta">Get Tickets</a></li>
+        </ul>
+        <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMobile()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" role="menu">
+      <a href="#about" onclick="closeMobile()">About</a>
+      <a href="#forum-2026" onclick="closeMobile()">Forum 2026</a>
+      <a href="#speakers" onclick="closeMobile()">Speakers</a>
+      <a href="#tickets" onclick="closeMobile()">Tickets</a>
+      <a href="#supporters" onclick="closeMobile()">Supporters</a>
+      <a href="#contact" onclick="closeMobile()">Contact</a>
+      <a href="/code-of-conduct" onclick="showCoC(); closeMobile(); return false;">Code of Conduct</a>
+      <a href="#tickets" class="nav-cta" onclick="closeMobile()">→ Get Tickets</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" aria-label="Hero">
+    <div class="container">
+      <div class="hero-inner">
+        <span class="hero-eyebrow">Inaugural Forum · 2026</span>
+        <h1>ANIMA: The American<br><em>Animation Forum</em></h1>
+        <p class="hero-sub">A structured, moderated convening for educators, independent creators, and industry professionals examining the trajectory of American animation.</p>
+        <div class="hero-ctas">
+          <a href="https://eventbrite.com/REPLACE_WITH_EVENTBRITE_LINK" target="_blank" rel="noopener" class="btn btn-primary">Get Tickets</a>
+          <a href="#speaker-interest" class="btn btn-ghost" style="color:#f5f1ea;border-color:rgba(245,241,234,0.35);">Speaker Interest</a>
+        </div>
+        <p class="hero-note">
+          Closed virtual event<span>·</span>Ticketed access<span>·</span>Recorded and archived
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ABOUT -->
+  <section id="about" aria-labelledby="about-title">
+    <div class="container">
+      <span class="section-label">About</span>
+      <div class="about-grid">
+        <div class="about-body">
+          <h2 id="about-title">What is ANIMA?</h2>
+          <div class="rule-accent"></div>
+          <p>ANIMA is a national forum dedicated to examining the artistic, economic, and structural future of American animation.</p>
+          <p>By convening educators, independent creators, and industry professionals, ANIMA fosters focused dialogue on identity, sustainability, and global positioning within the animation arts.</p>
+          <p>The forum is designed as a structured, moderated environment for thoughtful exchange rather than promotion or advocacy, with the goal of strengthening long-term understanding across sectors of the animation field.</p>
+          <div class="values-list" role="list" aria-label="Forum values">
+            <div class="value-item">
+              <strong>Structured dialogue</strong>
+              <p>Moderated panels designed for depth, clarity, and respectful exchange.</p>
+            </div>
+            <div class="value-item">
+              <strong>Research-informed</strong>
+              <p>Grounded in context, case studies, and field experience rather than hot takes.</p>
+            </div>
+            <div class="value-item">
+              <strong>Cross-sector</strong>
+              <p>Built to include academia, independent practice, and industry perspectives in the same room.</p>
+            </div>
+          </div>
+        </div>
+        <div class="about-aside">
+          <div class="about-box">
+            <h4>Who ANIMA is for</h4>
+            <ul role="list">
+              <li>Animation educators and program leaders</li>
+              <li>Independent animators and filmmakers</li>
+              <li>Industry professionals and production leaders</li>
+              <li>Researchers, critics, and historians of animation</li>
+              <li>Creators interested in global cultural exchange</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PILLARS -->
+  <section id="pillars" aria-labelledby="pillars-title">
+    <div class="container">
+      <span class="section-label">Framework</span>
+      <h2 id="pillars-title">Three pillars of the forum</h2>
+      <div class="pillars-grid" role="list">
+        <div class="pillar" role="listitem">
+          <span class="pillar-num">01 — ARTISTIC IDENTITY</span>
+          <h3>Artistic Identity</h3>
+          <p>What defines American animation as a cultural art form? How does stylistic identity emerge, and what factors shape its development?</p>
+        </div>
+        <div class="pillar" role="listitem">
+          <span class="pillar-num">02 — INFRASTRUCTURE</span>
+          <h3>Infrastructure &amp; Sustainability</h3>
+          <p>How are creators supported within current systems? What structural conditions influence long-term artistic and economic viability?</p>
+        </div>
+        <div class="pillar" role="listitem">
+          <span class="pillar-num">03 — GLOBAL CONTEXT</span>
+          <h3>Global Context</h3>
+          <p>How does American animation participate in the international landscape? What lessons can be observed from other national animation ecosystems?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORUM 2026 -->
+  <section id="forum-2026" aria-labelledby="forum-title">
+    <div class="container">
+      <span class="section-label">Forum 2026</span>
+      <div class="forum-header">
+        <h2 id="forum-title">ANIMA Forum 2026</h2>
+        <span class="forum-theme">"American Animation at a Crossroads: Art Form, Industry, or Both?"</span>
+        <div class="forum-overview">
+          <p>The inaugural ANIMA Forum examines the evolving relationship between artistic identity and production infrastructure in American animation.</p>
+          <p>Through moderated panel discussions, participants will explore how industry systems, education pipelines, and independent practices intersect — and what this means for American animation as a cultural force.</p>
+        </div>
+      </div>
+      <div class="forum-grid">
+        <div class="forum-box">
+          <h4>Format</h4>
+          <ul>
+            <li>Fully virtual, closed registration</li>
+            <li>Hosted via private Discord Stage</li>
+            <li>Moderated panels with structured Q&amp;A</li>
+            <li>Recorded and professionally archived</li>
+            <li>Approx. 5–6 hours total program length</li>
+          </ul>
+        </div>
+        <div class="forum-box">
+          <h4>Schedule</h4>
+          <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;">Full schedule announced after speaker confirmations.</p>
+          <div class="schedule-list" role="list">
+            <div class="sched-item"><span class="sched-time">TBD</span><span>Opening framing + forum orientation</span></div>
+            <div class="sched-item"><span class="sched-time">TBD</span><span>Panel 1 — Identity &amp; Aesthetic</span></div>
+            <div class="sched-item"><span class="sched-time">TBD</span><span>Panel 2 — Infrastructure &amp; Sustainability</span></div>
+            <div class="sched-item"><span class="sched-time">TBD</span><span>Panel 3 — Global Context</span></div>
+            <div class="sched-item"><span class="sched-time">TBD</span><span>Closing roundtable + next steps</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="panels-grid" role="list" aria-label="Panel descriptions">
+        <div class="panel-card" role="listitem">
+          <span class="panel-num">P1</span>
+          <div>
+            <h3>Panel 1 — Identity &amp; Aesthetic</h3>
+            <p>Does American animation have a cohesive artistic identity? What shapes it, fragments it, or strengthens it?</p>
+          </div>
+        </div>
+        <div class="panel-card" role="listitem">
+          <span class="panel-num">P2</span>
+          <div>
+            <h3>Panel 2 — Infrastructure &amp; Sustainability</h3>
+            <p>How do education, production realities, and economic incentives influence what gets made — and who can keep making it?</p>
+          </div>
+        </div>
+        <div class="panel-card" role="listitem">
+          <span class="panel-num">P3</span>
+          <div>
+            <h3>Panel 3 — Global Context</h3>
+            <p>What can be observed from other national animation ecosystems, and how does the U.S. position itself culturally on the global stage?</p>
+          </div>
+        </div>
+        <div class="panel-card" role="listitem">
+          <span class="panel-num">CR</span>
+          <div>
+            <h3>Closing Roundtable</h3>
+            <p>If American animation is at a crossroads, what road should it take over the next five years?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SPEAKERS -->
+  <section id="speakers" aria-labelledby="speakers-title">
+    <div class="container">
+      <span class="section-label">Speakers</span>
+      <h2 id="speakers-title">Speakers</h2>
+      <div class="rule-accent"></div>
+      <p class="speakers-intro">Speaker announcements are forthcoming. ANIMA aims to include voices from education, independent practice, and industry.</p>
+      <div class="speakers-grid" role="list">
+        <div class="speaker-card" role="listitem">
+          <div class="speaker-avatar">TBA</div>
+          <h3>To be announced</h3>
+          <span class="speaker-role">Animation Educator / Academic</span>
+          <p class="speaker-bio">Details coming soon.</p>
+        </div>
+        <div class="speaker-card" role="listitem">
+          <div class="speaker-avatar">TBA</div>
+          <h3>To be announced</h3>
+          <span class="speaker-role">Independent Animator / Filmmaker</span>
+          <p class="speaker-bio">Details coming soon.</p>
+        </div>
+        <div class="speaker-card" role="listitem">
+          <div class="speaker-avatar">TBA</div>
+          <h3>To be announced</h3>
+          <span class="speaker-role">Industry Professional</span>
+          <p class="speaker-bio">Details coming soon.</p>
+        </div>
+        <div class="speaker-card" role="listitem">
+          <div class="speaker-avatar">TBA</div>
+          <h3>To be announced</h3>
+          <span class="speaker-role">International Perspective</span>
+          <p class="speaker-bio">Details coming soon.</p>
+        </div>
+      </div>
+      <p class="speakers-note">Interested in speaking? <a href="#speaker-interest">Submit the Speaker Interest form below.</a></p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- TICKETS -->
+  <section id="tickets" aria-labelledby="tickets-title">
+    <div class="container">
+      <span class="section-label">Tickets</span>
+      <h2 id="tickets-title">Tickets</h2>
+      <div class="rule-accent"></div>
+      <p class="tickets-intro">Ticketing is designed to keep ANIMA accessible while maintaining a focused, committed audience.</p>
+      <div class="tiers-grid" role="list">
+        <div class="tier-card" role="listitem">
+          <div class="tier-name">Student</div>
+          <div class="tier-price">$5</div>
+          <div class="tier-includes">
+            <ul>
+              <li>Live access to all sessions</li>
+              <li>Private Discord access during the event</li>
+              <li>Ability to submit Q&amp;A questions</li>
+            </ul>
+          </div>
+          <div class="tier-cta">
+            <a href="https://eventbrite.com/REPLACE_WITH_EVENTBRITE_LINK" target="_blank" rel="noopener" class="btn btn-ghost" style="width:100%;display:block;">Purchase — $5</a>
+          </div>
+        </div>
+        <div class="tier-card featured" role="listitem">
+          <span class="tier-badge">Most Popular</span>
+          <div class="tier-name">Standard</div>
+          <div class="tier-price">$10</div>
+          <div class="tier-includes">
+            <ul>
+              <li>Live access to all sessions</li>
+              <li>30-day replay access</li>
+              <li>Curated resource list PDF</li>
+              <li>Private Discord access during the event</li>
+            </ul>
+          </div>
+          <div class="tier-cta">
+            <a href="https://eventbrite.com/REPLACE_WITH_EVENTBRITE_LINK" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;display:block;">Purchase — $10</a>
+          </div>
+        </div>
+        <div class="tier-card" role="listitem">
+          <div class="tier-name">Professional</div>
+          <div class="tier-price">$15</div>
+          <div class="tier-includes">
+            <ul>
+              <li>Live access to all sessions</li>
+              <li>Lifetime replay access</li>
+              <li>Curated resource list PDF</li>
+              <li>Private post-event discussion channel (2 weeks)</li>
+              <li>Early access to the next ANIMA announcement</li>
+            </ul>
+          </div>
+          <div class="tier-cta">
+            <a href="https://eventbrite.com/REPLACE_WITH_EVENTBRITE_LINK" target="_blank" rel="noopener" class="btn btn-outline-accent" style="width:100%;display:block;">Purchase — $15</a>
+          </div>
+        </div>
+      </div>
+      <ul class="tickets-notes" role="list" aria-label="Ticket notes">
+        <li>This is a closed virtual event. Access details will be emailed after purchase.</li>
+        <li>The forum is recorded. Edited archives are provided according to ticket tier.</li>
+        <li>Refund and transfer terms apply — see <a href="/terms">Terms &amp; Refund Policy</a>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SPEAKER INTEREST -->
+  <section id="speaker-interest" aria-labelledby="si-title">
+    <div class="container">
+      <span class="section-label">Speak at ANIMA</span>
+      <div class="interest-grid">
+        <div class="interest-text">
+          <h2 id="si-title">Speaker Interest</h2>
+          <div class="rule-accent"></div>
+          <p>If you're interested in participating as a speaker at ANIMA Forum 2026, we'd love to hear from you. ANIMA seeks voices from across sectors — education, independent practice, industry, criticism, and international contexts.</p>
+          <p>Speaker confirmations will be announced publicly before ticket sales open.</p>
+          <h4 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--muted);">The form asks for:</h4>
+          <ul class="fields-list" role="list">
+            <li>Name &amp; Role / Affiliation</li>
+            <li>Short bio</li>
+            <li>Why you're interested in ANIMA</li>
+            <li>Panel(s) you'd be best suited for</li>
+            <li>Links (portfolio / publications / talks)</li>
+            <li>Time zone and availability</li>
+          </ul>
+        </div>
+        <div class="interest-form-frame">
+          <h4>Submit Speaker Interest</h4>
+          <p style="font-size:0.87rem;color:var(--muted);margin-bottom:1.5rem;">Complete the short form to express interest. We review all submissions and follow up directly.</p>
+          <a href="https://forms.gle/REPLACE_WITH_SPEAKER_FORM" target="_blank" rel="noopener" class="form-link-btn">Open Speaker Interest Form →</a>
+          <p class="form-note">Opens in a new tab (Google Forms)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SUPPORTERS -->
+  <section id="supporters" aria-labelledby="supporters-title">
+    <div class="container">
+      <div class="supporters-inner">
+        <div class="supporters-left">
+          <span class="section-label">Supporters</span>
+          <h2 id="supporters-title" style="font-size:1.4rem;">ANIMA is an independent forum initiative.</h2>
+          <p class="independence-note">ANIMA programming is curated for structured dialogue and is not intended as promotional content.</p>
+        </div>
+        <div>
+          <div class="supporter-tag">
+            <span class="supporter-tag-dot"></span>
+            <div>
+              <div class="supporter-name">BluePotatoStudios</div>
+              <div class="supporter-type">Supporting Sponsor</div>
+            </div>
+          </div>
+          <div style="margin-top:1rem;">
+            <a href="#contact" class="btn btn-ghost" style="font-size:0.85rem;padding:0.55rem 1.25rem;">Sponsorship Inquiry</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- CONTACT -->
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="container">
+      <span class="section-label">Contact</span>
+      <h2 id="contact-title">Get in touch</h2>
+      <div class="contact-grid">
+        <div>
+          <p style="color:rgba(245,241,234,0.6);font-size:0.95rem;max-width:360px;">Questions, partnership inquiries, or press requests — reach out anytime.</p>
+          <a href="mailto:contact@animaforum.org" class="contact-email-link">contact@animaforum.org</a>
+          <p class="contact-sub">We respond to all inquiries within 3–5 business days.</p>
+        </div>
+        <div>
+          <div class="mailing-box">
+            <h4>Stay updated</h4>
+            <p>Get speaker announcements, schedule updates, and ticket info sent directly to you.</p>
+            <a href="REPLACE_WITH_MAILING_LIST_LINK" target="_blank" rel="noopener" class="mailing-link">Join the mailing list →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-copy">© 2026 ANIMA Forum. All rights reserved.</span>
+        <nav class="footer-links" aria-label="Footer links">
+          <a href="/code-of-conduct" onclick="showCoC(); return false;">Code of Conduct</a>
+          <span aria-hidden="true">·</span>
+          <a href="/privacy">Privacy Policy</a>
+          <span aria-hidden="true">·</span>
+          <a href="/terms">Terms &amp; Refunds</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /main-site -->
+
+
+<!-- ===================== CODE OF CONDUCT PAGE ===================== -->
+<div id="coc-page" aria-label="Code of Conduct page">
+
+  <nav id="site-nav" style="position:sticky;top:0;z-index:100;background:var(--paper);border-bottom:1px solid var(--border);">
+    <div class="container">
+      <div class="nav-inner">
+        <button class="nav-brand" onclick="showMain()" style="background:none;border:none;cursor:pointer;font-family:var(--ff-head);font-weight:700;font-size:1.05rem;color:var(--ink);">
+          <span style="color:var(--accent)">ANIMA</span> Forum
+        </button>
+        <button class="coc-back" onclick="showMain()">← Back to main site</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="coc-header">
+    <div class="container">
+      <span class="section-label">Policy</span>
+      <h1>Code of Conduct</h1>
+      <p class="coc-effective">Effective date: [Insert Date] &nbsp;·&nbsp; Applies to: ANIMA Forum events, Discord server, live sessions, and associated communications</p>
+      <button class="coc-back" onclick="showMain()">← Back to main site</button>
+    </div>
+  </div>
+
+  <div class="coc-body">
+    <div class="container">
+      <div class="coc-content">
+
+        <div class="coc-section">
+          <h2><span class="coc-num">1.</span>Purpose</h2>
+          <p>ANIMA is a structured forum for thoughtful dialogue about the artistic, economic, and structural trajectory of American animation. We aim to create an environment where educators, independent creators, and industry professionals can engage seriously and respectfully.</p>
+        </div>
+
+        <div class="coc-section">
+          <h2><span class="coc-num">2.</span>Expected Behavior</h2>
+          <p>All participants — including attendees, speakers, staff, sponsors, and guests — are expected to:</p>
+          <ul role="list">
+            <li>Be respectful and constructive. Disagree with ideas without attacking people.</li>
+            <li>Engage in good faith. Ask questions to understand; avoid derailing conversation.</li>
+            <li>Respect time and structure. Follow moderator direction and event pacing.</li>
+            <li>Use inclusive, professional language. Avoid slurs, demeaning remarks, or targeted hostility.</li>
+            <li>Protect privacy. Do not share personal information about others without consent.</li>
+          </ul>
+        </div>
+
+        <div class="coc-section">
+          <h2><span class="coc-num">3.</span>Unacceptable Behavior</h2>
+          <p>ANIMA does not permit:</p>
+          <ul role="list">
+            <li>Harassment, intimidation, threats, stalking, or sustained disruption</li>
+            <li>Discriminatory language or behavior (race, ethnicity, nationality, religion, disability, gender identity, sexual orientation, etc.)</li>
+            <li>Hate speech, sexual harassment, or unwanted sexual attention</li>
+            <li>Doxxing or encouraging others to dox</li>
+            <li>Sharing non-consensual recordings, screenshots, or quotes from private channels</li>
+            <li>Impersonation, fraud, or attempts to bypass paid access controls</li>
+            <li>Excessive self-promotion, solicitation, or spam (including unsolicited DMs to attendees)</li>
+            <li>Posting or distributing illegal content</li>
+          </ul>
+        </div>
+
+        <div class="coc-section">
+          <h2><span class="coc-num">4.</span>Recording and Content Use</h2>
+          <ul role="list">
+            <li>ANIMA sessions are recorded for archival and attendee replay access.</li>
+            <li>ANIMA may publish edited highlights after the event.</li>
+            <li>Attendees will not be brought "on stage" without consent.</li>
+            <li>Participants may not redistribute recordings provided through ticket access, unless explicitly permitted in writing.</li>
+          </ul>
+        </div>
+
+        <div class="coc-section">
+          <h2><span class="coc-num">5.</span>Discord Guidelines (Event Server)</h2>
+          <p>To preserve a professional environment:</p>
+          <ul role="list">
+            <li>Follow channel purposes and posting rules.</li>
+            <li>Use the Q&amp;A channel for questions (as directed by moderators).</li>
+            <li>Do not "backseat moderate" speakers or attendees.</li>
+            <li>Keep discussions on-topic and avoid brigading or pile-ons.</li>
+            <li>Respect staff instructions regarding mutes, timeouts, and channel locks.</li>
+          </ul>
+        </div>
+
+        <div class="coc-section">
+          <h2><span class="coc-num">6.</span>Reporting Concerns</h2>
+          <p>If you experience or witness behavior that violates this Code of Conduct:</p>
+          <div class="coc-contact-box">
+            <p style="margin-bottom:0.5rem;">Email: <a href="mailto:contact@animaforum.org">contact@animaforum.org</a></p>
+            <p style="margin-bottom:0;color:var(--muted);font-size:0.88rem;">Or DM a staff member listed in #rules-and-code-of-conduct on the event Discord.</p>
+          </div>
+          <p style="margin-top:1rem;font-size:0.88rem;color:var(--muted);">If you are in immediate danger, contact local emergency services.</p>
+        </div>
+
+        <div class="coc-section">
+          <h2><span class="coc-num">7.</span>Enforcement</h2>
+          <p>ANIMA staff may take any action deemed appropriate, including:</p>
+          <ul role="list">
+            <li>Verbal warning</li>
+            <li>Message removal</li>
+            <li>Temporary mute or timeout</li>
+            <li>Removal from a channel or session</li>
+            <li>Removal from the Discord server</li>
+            <li>Ticket revocation without refund (for serious or repeated violations)</li>
+            <li>Permanent ban from future ANIMA events</li>
+          </ul>
+          <p style="margin-top:0.85rem;">We will consider context and severity. We prioritize the safety and integrity of the forum over participation.</p>
+        </div>
+
+        <div class="coc-section">
+          <h2><span class="coc-num">8.</span>Anti-Retaliation</h2>
+          <p>Retaliation against anyone who reports a concern in good faith is not permitted and may result in removal.</p>
+        </div>
+
+        <div class="coc-section">
+          <h2><span class="coc-num">9.</span>Contact</h2>
+          <p>Questions about this policy:</p>
+          <div class="coc-contact-box">
+            <a href="mailto:contact@animaforum.org">contact@animaforum.org</a>
+          </div>
+        </div>
+
+        <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);">
+          <button onclick="showMain()" class="btn btn-ghost" style="font-size:0.88rem;">← Back to ANIMA Forum</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer id="site-footer" role="contentinfo" style="background:#080807;color:rgba(245,241,234,0.4);padding:2rem 0;border-top:1px solid rgba(255,255,255,0.06);">
+    <div class="container">
+      <div class="footer-inner">
+        <span style="font-size:0.8rem;">© 2026 ANIMA Forum. All rights reserved.</span>
+        <nav class="footer-links" aria-label="Footer links">
+          <a href="/code-of-conduct" onclick="showCoC(); return false;" style="font-size:0.8rem;color:rgba(245,241,234,0.4);">Code of Conduct</a>
+          <span style="color:rgba(255,255,255,0.15);">·</span>
+          <a href="/privacy" style="font-size:0.8rem;color:rgba(245,241,234,0.4);">Privacy Policy</a>
+          <span style="color:rgba(255,255,255,0.15);">·</span>
+          <a href="/terms" style="font-size:0.8rem;color:rgba(245,241,234,0.4);">Terms &amp; Refunds</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /coc-page -->
+
+<script>
+  // === ROUTING ===
+  function showCoC() {
+    document.getElementById('main-site').classList.add('hidden');
+    document.getElementById('coc-page').classList.add('active');
+    window.scrollTo(0, 0);
+    history.pushState(null, '', '/code-of-conduct');
+  }
+  function showMain() {
+    document.getElementById('coc-page').classList.remove('active');
+    document.getElementById('main-site').classList.remove('hidden');
+    window.scrollTo(0, 0);
+    history.pushState(null, '', '/');
+  }
+
+  // === MOBILE NAV ===
+  function toggleMobile() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('open');
+  }
+  function closeMobile() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.remove('open');
+  }
+
+  // Close mobile menu on outside click
+  document.addEventListener('click', function(e) {
+    const nav = document.getElementById('site-nav');
+    if (nav && !nav.contains(e.target)) closeMobile();
+  });
+
+  // Handle direct navigation to /code-of-conduct
+  if (window.location.pathname === '/code-of-conduct') {
+    showCoC();
+  }
+
+  // Handle browser back/forward
+  window.addEventListener('popstate', function() {
+    if (window.location.pathname === '/code-of-conduct') {
+      showCoC();
+    } else {
+      showMain();
+    }
+  });
+</script>
+</body>
+</html>
