@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ANIMA: The American Animation Forum</title>
-<meta name="description" content="A national forum examining the artistic and structural trajectory of American animation.">
+<meta name="description" content="A national forum examining the artistic and structural trajectory of American animation. October 3, 2026 — Virtual, Private Discord Stage.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -315,13 +315,27 @@
     gap: 0;
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 3px;
-    overflow: hidden;
+    overflow: visible;
+    position: relative;
   }
   .pillar {
     padding: 2.25rem 2rem;
     border-right: 1px solid rgba(255,255,255,0.1);
     position: relative;
+    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+                background 0.22s ease,
+                box-shadow 0.22s ease;
+    cursor: default;
   }
+  .pillar:hover {
+    transform: translateY(-8px) scale(1.025);
+    background: rgba(255,255,255,0.06);
+    box-shadow: 0 20px 48px rgba(0,0,0,0.45);
+    z-index: 2;
+    border-color: rgba(255,255,255,0.2);
+  }
+  .pillar:hover .pillar-num { color: var(--warm-mid); transition: color 0.2s; }
+  .pillar:hover h3 { color: #fff; transition: color 0.2s; }
   .pillar:last-child { border-right: none; }
   .pillar-num {
     font-family: var(--ff-mono);
@@ -330,8 +344,9 @@
     color: var(--accent);
     display: block;
     margin-bottom: 1rem;
+    transition: color 0.2s;
   }
-  .pillar h3 { color: var(--paper); font-size: 1.15rem; margin-bottom: 0.85rem; }
+  .pillar h3 { color: var(--paper); font-size: 1.15rem; margin-bottom: 0.85rem; transition: color 0.2s; }
   .pillar p { font-size: 0.88rem; color: rgba(245,241,234,0.65); line-height: 1.7; margin: 0; }
 
   @media (max-width: 680px) {
@@ -830,6 +845,153 @@
   .coc-contact-box a { color: var(--accent); }
 
   /* ===========================
+     HERO EVENT BAR
+  =========================== */
+  .hero-event-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    max-width: 620px;
+  }
+  .hero-event-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.85rem 1.25rem;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    flex: 1;
+    min-width: 110px;
+  }
+  .hero-event-item:last-child { border-right: none; }
+  .hero-event-item .ev-label {
+    font-family: var(--ff-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+  }
+  .hero-event-item .ev-value {
+    font-size: 0.85rem;
+    color: rgba(245,241,234,0.88);
+    font-weight: 500;
+  }
+  @media (max-width: 500px) {
+    .hero-event-bar { flex-direction: column; }
+    .hero-event-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .hero-event-item:last-child { border-bottom: none; }
+  }
+
+  /* ===========================
+     WHY ANIMA SECTION
+  =========================== */
+  #why-anima { background: var(--paper); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .why-body p { color: var(--muted); font-size: 1.03rem; line-height: 1.75; }
+  .context-cards { display: flex; flex-direction: column; gap: 1rem; }
+  .context-card {
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    padding: 1.4rem 1.5rem;
+    background: var(--cream);
+  }
+  .context-card strong {
+    display: block;
+    font-size: 0.85rem;
+    font-family: var(--ff-body);
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .context-card p { font-size: 0.84rem; color: var(--muted); margin: 0; line-height: 1.6; }
+  @media (max-width: 680px) {
+    .why-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  /* ===========================
+     SPEAKERS CALLOUT BAR
+  =========================== */
+  .speakers-callout {
+    display: flex;
+    align-items: stretch;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+    flex-wrap: wrap;
+  }
+  .speakers-callout-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 1.25rem 1.75rem;
+    border-right: 1px solid var(--border);
+    flex: 1;
+    min-width: 110px;
+  }
+  .speakers-callout-item:last-child { border-right: none; }
+  .speakers-callout-item .sc-num {
+    font-family: var(--ff-head);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .speakers-callout-item .sc-label {
+    font-family: var(--ff-mono);
+    font-size: 0.63rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* speaker panel assignment label */
+  .speaker-panel {
+    font-family: var(--ff-mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  /* panel duration tag */
+  .panel-tag {
+    display: inline-block;
+    font-family: var(--ff-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    margin-top: 0.5rem;
+  }
+
+  /* speaker interest honorarium callout */
+  .honorarium-note {
+    margin-top: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-size: 0.83rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .honorarium-note strong { color: var(--ink); }
+
+  /* ===========================
      ANIMATIONS
   =========================== */
   @keyframes fadeUp {
@@ -845,6 +1007,7 @@
   .hero-inner > *:nth-child(3) { animation-delay: 0.25s; }
   .hero-inner > *:nth-child(4) { animation-delay: 0.35s; }
   .hero-inner > *:nth-child(5) { animation-delay: 0.45s; }
+  .hero-inner > *:nth-child(6) { animation-delay: 0.52s; }
 </style>
 </head>
 <body>
@@ -862,6 +1025,7 @@
         <ul class="nav-links" role="list">
           <li><a href="#about">About</a></li>
           <li><a href="#forum-2026">Forum 2026</a></li>
+          <li><a href="#why-anima">Why It Matters</a></li>
           <li><a href="#speakers">Speakers</a></li>
           <li><a href="#tickets">Tickets</a></li>
           <li><a href="#supporters">Supporters</a></li>
@@ -877,6 +1041,7 @@
     <div id="mobile-menu" role="menu">
       <a href="#about" onclick="closeMobile()">About</a>
       <a href="#forum-2026" onclick="closeMobile()">Forum 2026</a>
+      <a href="#why-anima" onclick="closeMobile()">Why It Matters</a>
       <a href="#speakers" onclick="closeMobile()">Speakers</a>
       <a href="#tickets" onclick="closeMobile()">Tickets</a>
       <a href="#supporters" onclick="closeMobile()">Supporters</a>
@@ -890,15 +1055,33 @@
   <section id="hero" aria-label="Hero">
     <div class="container">
       <div class="hero-inner">
-        <span class="hero-eyebrow">Inaugural Forum · 2026</span>
+        <span class="hero-eyebrow">Inaugural Forum · October 3, 2026</span>
         <h1>ANIMA: The American<br><em>Animation Forum</em></h1>
         <p class="hero-sub">A structured, moderated convening for educators, independent creators, and industry professionals examining the trajectory of American animation.</p>
         <div class="hero-ctas">
           <a href="https://eventbrite.com/REPLACE_WITH_EVENTBRITE_LINK" target="_blank" rel="noopener" class="btn btn-primary">Get Tickets</a>
           <a href="#speaker-interest" class="btn btn-ghost" style="color:#f5f1ea;border-color:rgba(245,241,234,0.35);">Speaker Interest</a>
         </div>
+        <div class="hero-event-bar" aria-label="Event details">
+          <div class="hero-event-item">
+            <span class="ev-label">Date</span>
+            <span class="ev-value">Saturday, Oct 3, 2026</span>
+          </div>
+          <div class="hero-event-item">
+            <span class="ev-label">Time</span>
+            <span class="ev-value">2:00 – 8:00 PM EST</span>
+          </div>
+          <div class="hero-event-item">
+            <span class="ev-label">Format</span>
+            <span class="ev-value">Virtual · Discord Stage</span>
+          </div>
+          <div class="hero-event-item">
+            <span class="ev-label">Tickets from</span>
+            <span class="ev-value">$5</span>
+          </div>
+        </div>
         <p class="hero-note">
-          Closed virtual event<span>·</span>Ticketed access<span>·</span>Recorded and archived
+          Closed virtual event<span>·</span>100–200 attendees<span>·</span>Recorded and archived
         </p>
       </div>
     </div>
@@ -915,8 +1098,8 @@
           <h2 id="about-title">What is ANIMA?</h2>
           <div class="rule-accent"></div>
           <p>ANIMA is a national forum dedicated to examining the artistic, economic, and structural future of American animation.</p>
-          <p>By convening educators, independent creators, and industry professionals, ANIMA fosters focused dialogue on identity, sustainability, and global positioning within the animation arts.</p>
-          <p>The forum is designed as a structured, moderated environment for thoughtful exchange rather than promotion or advocacy, with the goal of strengthening long-term understanding across sectors of the animation field.</p>
+          <p>By convening educators, independent creators, and industry professionals, ANIMA fosters focused dialogue on identity, sustainability, and global positioning within the animation arts. The goal is not promotion or advocacy — it is sustained, honest conversation about where American animation stands and where it should go.</p>
+          <p>The forum is designed as a structured, moderated environment for thoughtful exchange, grounded in field experience, research, and cross-sector perspective.</p>
           <div class="values-list" role="list" aria-label="Forum values">
             <div class="value-item">
               <strong>Structured dialogue</strong>
@@ -930,6 +1113,10 @@
               <strong>Cross-sector</strong>
               <p>Built to include academia, independent practice, and industry perspectives in the same room.</p>
             </div>
+            <div class="value-item">
+              <strong>Long-term perspective</strong>
+              <p>Focused on sustained cultural conversation, not short-term promotion or trend-chasing.</p>
+            </div>
           </div>
         </div>
         <div class="about-aside">
@@ -940,8 +1127,14 @@
               <li>Independent animators and filmmakers</li>
               <li>Industry professionals and production leaders</li>
               <li>Researchers, critics, and historians of animation</li>
+              <li>Storyboard artists, writers, and designers</li>
+              <li>Students entering the animation field</li>
               <li>Creators interested in global cultural exchange</li>
             </ul>
+          </div>
+          <div class="about-box">
+            <h4>Core Mission</h4>
+            <p style="font-size:0.9rem;color:var(--muted);margin:0;line-height:1.7;font-style:italic;">"Strengthening American animation as a cultural art form through education, research, and international exchange."</p>
           </div>
         </div>
       </div>
@@ -975,6 +1168,42 @@
     </div>
   </section>
 
+  <!-- WHY ANIMA MATTERS -->
+  <section id="why-anima" aria-labelledby="why-title">
+    <div class="container">
+      <span class="section-label">Context</span>
+      <div class="why-grid">
+        <div class="why-body">
+          <h2 id="why-title">Why this conversation, why now</h2>
+          <div class="rule-accent"></div>
+          <p>American animation is experiencing a period of significant structural upheaval. Simultaneous pressures — AI-generated imagery, streaming platform contraction, large-scale studio consolidation, and a widening gap between independent and corporate production — have created a field in which the fundamental questions of creative identity and economic sustainability are no longer abstract.</p>
+          <p>These are questions about what gets made, who can keep making it, and what the medium communicates about American culture to the rest of the world. They deserve serious, sustained dialogue — not just industry panels, not just academic debate, but a space where those conversations happen together.</p>
+          <p>ANIMA exists to be that space. Not to advocate for a particular answer, but to ensure the questions are asked with the rigor and honesty they require.</p>
+        </div>
+        <div class="context-cards">
+          <div class="context-card">
+            <strong>AI &amp; Technological Disruption</strong>
+            <p>Generative AI tools are reshaping production pipelines across the industry. What does this mean for animators, for craft, and for the definition of authorship in the medium?</p>
+          </div>
+          <div class="context-card">
+            <strong>Streaming Contraction &amp; Studio Consolidation</strong>
+            <p>Major platforms have pulled back on animation investment. Studio mergers have concentrated creative decision-making. Independent production faces a more difficult landscape than it did five years ago.</p>
+          </div>
+          <div class="context-card">
+            <strong>Education &amp; the Pipeline</strong>
+            <p>Animation programs are producing graduates entering an industry with fewer traditional entry points. How education adapts — and how the industry receives emerging talent — will shape the next generation of the form.</p>
+          </div>
+          <div class="context-card">
+            <strong>Global Positioning</strong>
+            <p>National animation ecosystems in Japan, France, and South Korea have developed distinctive identities supported by dedicated infrastructure. How does the United States think about its animation culture at that scale?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
   <!-- FORUM 2026 -->
   <section id="forum-2026" aria-labelledby="forum-title">
     <div class="container">
@@ -983,7 +1212,7 @@
         <h2 id="forum-title">ANIMA Forum 2026</h2>
         <span class="forum-theme">"American Animation at a Crossroads: Art Form, Industry, or Both?"</span>
         <div class="forum-overview">
-          <p>The inaugural ANIMA Forum examines the evolving relationship between artistic identity and production infrastructure in American animation.</p>
+          <p>The inaugural ANIMA Forum examines the evolving relationship between artistic identity and production infrastructure in American animation. This is not a conference. It is a focused one-day conversation between people who care deeply about where this medium is going — and why it matters.</p>
           <p>Through moderated panel discussions, participants will explore how industry systems, education pipelines, and independent practices intersect — and what this means for American animation as a cultural force.</p>
         </div>
       </div>
@@ -993,20 +1222,22 @@
           <ul>
             <li>Fully virtual, closed registration</li>
             <li>Hosted via private Discord Stage</li>
-            <li>Moderated panels with structured Q&amp;A</li>
+            <li>3 moderated panels + closing roundtable</li>
+            <li>Structured Q&amp;A after each session</li>
             <li>Recorded and professionally archived</li>
-            <li>Approx. 5–6 hours total program length</li>
+            <li>5–6 hours total · 100–200 attendees</li>
           </ul>
         </div>
         <div class="forum-box">
           <h4>Schedule</h4>
-          <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;">Full schedule announced after speaker confirmations.</p>
+          <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;">Approximate times — confirmed after speaker sign-off.</p>
           <div class="schedule-list" role="list">
-            <div class="sched-item"><span class="sched-time">TBD</span><span>Opening framing + forum orientation</span></div>
-            <div class="sched-item"><span class="sched-time">TBD</span><span>Panel 1 — Identity &amp; Aesthetic</span></div>
-            <div class="sched-item"><span class="sched-time">TBD</span><span>Panel 2 — Infrastructure &amp; Sustainability</span></div>
-            <div class="sched-item"><span class="sched-time">TBD</span><span>Panel 3 — Global Context</span></div>
-            <div class="sched-item"><span class="sched-time">TBD</span><span>Closing roundtable + next steps</span></div>
+            <div class="sched-item"><span class="sched-time">2:00 PM</span><span>Opening framing + forum orientation</span></div>
+            <div class="sched-item"><span class="sched-time">2:30 PM</span><span>Panel 1 — Identity &amp; Aesthetic</span></div>
+            <div class="sched-item"><span class="sched-time">4:00 PM</span><span>Panel 2 — Infrastructure &amp; Sustainability</span></div>
+            <div class="sched-item"><span class="sched-time">5:30 PM</span><span>Panel 3 — Global Context</span></div>
+            <div class="sched-item"><span class="sched-time">7:00 PM</span><span>Closing roundtable — Where Next?</span></div>
+            <div class="sched-item"><span class="sched-time">8:00 PM</span><span>End of program</span></div>
           </div>
         </div>
       </div>
@@ -1015,28 +1246,32 @@
           <span class="panel-num">P1</span>
           <div>
             <h3>Panel 1 — Identity &amp; Aesthetic</h3>
-            <p>Does American animation have a cohesive artistic identity? What shapes it, fragments it, or strengthens it?</p>
+            <p>Does American animation have a cohesive artistic identity? What shapes it, fragments it, or strengthens it — and who gets to define it?</p>
+            <span class="panel-tag">60–90 min · 2–3 speakers</span>
           </div>
         </div>
         <div class="panel-card" role="listitem">
           <span class="panel-num">P2</span>
           <div>
             <h3>Panel 2 — Infrastructure &amp; Sustainability</h3>
-            <p>How do education, production realities, and economic incentives influence what gets made — and who can keep making it?</p>
+            <p>How do education, production realities, and economic incentives influence what gets made — and who can keep making it over a career?</p>
+            <span class="panel-tag">60–90 min · 2–3 speakers</span>
           </div>
         </div>
         <div class="panel-card" role="listitem">
           <span class="panel-num">P3</span>
           <div>
             <h3>Panel 3 — Global Context</h3>
-            <p>What can be observed from other national animation ecosystems, and how does the U.S. position itself culturally on the global stage?</p>
+            <p>What can be observed from other national animation ecosystems — Japan, France, South Korea — and how does the U.S. position itself culturally on the global stage?</p>
+            <span class="panel-tag">60–90 min · 2–3 speakers</span>
           </div>
         </div>
         <div class="panel-card" role="listitem">
           <span class="panel-num">CR</span>
           <div>
-            <h3>Closing Roundtable</h3>
-            <p>If American animation is at a crossroads, what road should it take over the next five years?</p>
+            <h3>Closing Roundtable — Where Next?</h3>
+            <p>If American animation is at a crossroads, what road should it take over the next five years? All confirmed speakers + open Q&amp;A.</p>
+            <span class="panel-tag">60 min · All speakers</span>
           </div>
         </div>
       </div>
@@ -1051,30 +1286,59 @@
       <span class="section-label">Speakers</span>
       <h2 id="speakers-title">Speakers</h2>
       <div class="rule-accent"></div>
-      <p class="speakers-intro">Speaker announcements are forthcoming. ANIMA aims to include voices from education, independent practice, and industry.</p>
+      <div class="speakers-callout" aria-label="Speaker program overview">
+        <div class="speakers-callout-item">
+          <span class="sc-num">5–7</span>
+          <span class="sc-label">Featured Speakers</span>
+        </div>
+        <div class="speakers-callout-item">
+          <span class="sc-num">4</span>
+          <span class="sc-label">Sessions</span>
+        </div>
+        <div class="speakers-callout-item">
+          <span class="sc-num">$100</span>
+          <span class="sc-label">Honorarium / Speaker</span>
+        </div>
+        <div class="speakers-callout-item">
+          <span class="sc-num">Oct 3</span>
+          <span class="sc-label">Event Date</span>
+        </div>
+      </div>
+      <p class="speakers-intro">Speaker announcements are forthcoming. ANIMA seeks voices from education, independent practice, industry, criticism, and international contexts — people willing to examine American animation honestly, including its failures, contradictions, and unanswered questions.</p>
       <div class="speakers-grid" role="list">
         <div class="speaker-card" role="listitem">
           <div class="speaker-avatar">TBA</div>
           <h3>To be announced</h3>
           <span class="speaker-role">Animation Educator / Academic</span>
+          <span class="speaker-panel">Panel 1 — Identity &amp; Aesthetic</span>
           <p class="speaker-bio">Details coming soon.</p>
         </div>
         <div class="speaker-card" role="listitem">
           <div class="speaker-avatar">TBA</div>
           <h3>To be announced</h3>
           <span class="speaker-role">Independent Animator / Filmmaker</span>
+          <span class="speaker-panel">Panel 2 — Infrastructure &amp; Sustainability</span>
           <p class="speaker-bio">Details coming soon.</p>
         </div>
         <div class="speaker-card" role="listitem">
           <div class="speaker-avatar">TBA</div>
           <h3>To be announced</h3>
           <span class="speaker-role">Industry Professional</span>
+          <span class="speaker-panel">Panel 2 — Infrastructure &amp; Sustainability</span>
           <p class="speaker-bio">Details coming soon.</p>
         </div>
         <div class="speaker-card" role="listitem">
           <div class="speaker-avatar">TBA</div>
           <h3>To be announced</h3>
           <span class="speaker-role">International Perspective</span>
+          <span class="speaker-panel">Panel 3 — Global Context</span>
+          <p class="speaker-bio">Details coming soon.</p>
+        </div>
+        <div class="speaker-card" role="listitem">
+          <div class="speaker-avatar">TBA</div>
+          <h3>To be announced</h3>
+          <span class="speaker-role">Critic / Researcher</span>
+          <span class="speaker-panel">Panel 1 — Identity &amp; Aesthetic</span>
           <p class="speaker-bio">Details coming soon.</p>
         </div>
       </div>
@@ -1158,7 +1422,8 @@
           <h2 id="si-title">Speaker Interest</h2>
           <div class="rule-accent"></div>
           <p>If you're interested in participating as a speaker at ANIMA Forum 2026, we'd love to hear from you. ANIMA seeks voices from across sectors — education, independent practice, industry, criticism, and international contexts.</p>
-          <p>Speaker confirmations will be announced publicly before ticket sales open.</p>
+          <p>We are not programming a celebration. We are not seeking promotional appearances. We are looking for people willing to examine American animation honestly — including its failures, contradictions, and unanswered questions.</p>
+          <p>Speaker confirmations will be announced publicly. All confirmed speakers receive a <strong>$100 honorarium</strong> and a 30-minute pre-event briefing call. Fully virtual — no travel required.</p>
           <h4 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--muted);">The form asks for:</h4>
           <ul class="fields-list" role="list">
             <li>Name &amp; Role / Affiliation</li>
@@ -1172,8 +1437,12 @@
         <div class="interest-form-frame">
           <h4>Submit Speaker Interest</h4>
           <p style="font-size:0.87rem;color:var(--muted);margin-bottom:1.5rem;">Complete the short form to express interest. We review all submissions and follow up directly.</p>
-          <a href="https://forms.gle/REPLACE_WITH_SPEAKER_FORM" target="_blank" rel="noopener" class="form-link-btn">Open Speaker Interest Form →</a>
+          <a href="https://forms.gle/BLUa3xNMAnV7Re4P8" target="_blank" rel="noopener" class="form-link-btn">Open Speaker Interest Form →</a>
           <p class="form-note">Opens in a new tab (Google Forms)</p>
+          <div class="honorarium-note">
+            <strong>Commitment:</strong> One 60–90 min panel or roundtable · 30-min pre-event briefing call · Available via Discord Stage on Oct 3, 2026<br>
+            <strong>Honorarium:</strong> $100 for all confirmed speakers
+          </div>
         </div>
       </div>
     </div>
@@ -1188,7 +1457,7 @@
         <div class="supporters-left">
           <span class="section-label">Supporters</span>
           <h2 id="supporters-title" style="font-size:1.4rem;">ANIMA is an independent forum initiative.</h2>
-          <p class="independence-note">ANIMA programming is curated for structured dialogue and is not intended as promotional content.</p>
+          <p class="independence-note">BluePotatoStudios provides logistical and operational support. ANIMA maintains full independence in programming, discussion topics, and speaker viewpoints.</p>
         </div>
         <div>
           <div class="supporter-tag">
@@ -1199,7 +1468,7 @@
             </div>
           </div>
           <div style="margin-top:1rem;">
-            <a href="#contact" class="btn btn-ghost" style="font-size:0.85rem;padding:0.55rem 1.25rem;">Sponsorship Inquiry</a>
+            <a href="https://forms.gle/gaqTj3FRMcXXs3c47" target="_blank" rel="noopener" class="btn btn-ghost" style="font-size:0.85rem;padding:0.55rem 1.25rem;">Sponsorship Inquiry</a>
           </div>
         </div>
       </div>
@@ -1216,7 +1485,7 @@
       <div class="contact-grid">
         <div>
           <p style="color:rgba(245,241,234,0.6);font-size:0.95rem;max-width:360px;">Questions, partnership inquiries, or press requests — reach out anytime.</p>
-          <a href="mailto:contact@animaforum.org" class="contact-email-link">contact@animaforum.org</a>
+          <a href="/cdn-cgi/l/email-protection#d4b7bbbaa0b5b7a094b5babdb9b5b2bba6a1b9fabba6b3" class="contact-email-link"><span class="__cf_email__" data-cfemail="c3a0acadb7a2a0b783a2adaaaea2a5acb1b6aeedacb1a4">[email&#160;protected]</span></a>
           <p class="contact-sub">We respond to all inquiries within 3–5 business days.</p>
         </div>
         <div>
@@ -1334,7 +1603,7 @@
           <h2><span class="coc-num">6.</span>Reporting Concerns</h2>
           <p>If you experience or witness behavior that violates this Code of Conduct:</p>
           <div class="coc-contact-box">
-            <p style="margin-bottom:0.5rem;">Email: <a href="mailto:contact@animaforum.org">contact@animaforum.org</a></p>
+            <p style="margin-bottom:0.5rem;">Email: <a href="/cdn-cgi/l/email-protection#d9bab6b7adb8baad99b8b7b0b4b8bfb6abacb4f7b6abbe"><span class="__cf_email__" data-cfemail="12717d7c6673716652737c7b7f73747d60677f3c7d6075">[email&#160;protected]</span></a></p>
             <p style="margin-bottom:0;color:var(--muted);font-size:0.88rem;">Or DM a staff member listed in #rules-and-code-of-conduct on the event Discord.</p>
           </div>
           <p style="margin-top:1rem;font-size:0.88rem;color:var(--muted);">If you are in immediate danger, contact local emergency services.</p>
@@ -1364,7 +1633,7 @@
           <h2><span class="coc-num">9.</span>Contact</h2>
           <p>Questions about this policy:</p>
           <div class="coc-contact-box">
-            <a href="mailto:contact@animaforum.org">contact@animaforum.org</a>
+            <a href="/cdn-cgi/l/email-protection#7f1c10110b1e1c0b3f1e1116121e19100d0a1251100d18"><span class="__cf_email__" data-cfemail="07646869736664734766696e6a66616875726a29687560">[email&#160;protected]</span></a>
           </div>
         </div>
 
@@ -1393,7 +1662,7 @@
 
 </div><!-- /coc-page -->
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // === ROUTING ===
   function showCoC() {
     document.getElementById('main-site').classList.add('hidden');
@@ -1418,25 +1687,4 @@
     menu.classList.remove('open');
   }
 
-  // Close mobile menu on outside click
-  document.addEventListener('click', function(e) {
-    const nav = document.getElementById('site-nav');
-    if (nav && !nav.contains(e.target)) closeMobile();
-  });
-
-  // Handle direct navigation to /code-of-conduct
-  if (window.location.pathname === '/code-of-conduct') {
-    showCoC();
-  }
-
-  // Handle browser back/forward
-  window.addEventListener('popstate', function() {
-    if (window.location.pathname === '/code-of-conduct') {
-      showCoC();
-    } else {
-      showMain();
-    }
-  });
-</script>
-</body>
-</html>
+  // Close mobile menu on outsi
