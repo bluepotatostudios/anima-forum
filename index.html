@@ -1009,6 +1009,188 @@
   .hero-inner > *:nth-child(5) { animation-delay: 0.45s; }
   .hero-inner > *:nth-child(6) { animation-delay: 0.52s; }
 
+  /* ===========================
+     COUNTDOWN TIMER
+  =========================== */
+  .hero-countdown {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    max-width: 340px;
+  }
+  .countdown-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.85rem 1rem;
+    flex: 1;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .countdown-unit:last-child { border-right: none; }
+  .countdown-num {
+    font-family: var(--ff-head);
+    font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+    font-weight: 700;
+    color: var(--warm-mid);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    display: block;
+    min-width: 2ch;
+    text-align: center;
+    transition: opacity 0.12s ease, transform 0.12s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .countdown-num.tick {
+    opacity: 0.5;
+    transform: translateY(-3px);
+  }
+  .countdown-label {
+    font-family: var(--ff-mono);
+    font-size: 0.52rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(245,241,234,0.38);
+  }
+  .countdown-live {
+    padding: 0.85rem 1.5rem;
+    font-family: var(--ff-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .countdown-live::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #5fba7d;
+    animation: livePulse 1.5s ease-in-out infinite;
+  }
+  @keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(0.75); }
+  }
+
+  /* ===========================
+     NAV SHADOW ON SCROLL
+  =========================== */
+  #site-nav {
+    transition: box-shadow 0.3s ease;
+  }
+  #site-nav.scrolled {
+    box-shadow: 0 2px 20px rgba(14,14,13,0.1);
+  }
+
+  /* ===========================
+     SCROLL REVEAL
+  =========================== */
+  .js-ready .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .js-ready .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===========================
+     RULE ACCENT DRAW ANIMATION
+  =========================== */
+  .js-ready .rule-accent {
+    width: 0 !important;
+    transition: width 0.65s cubic-bezier(0.25, 1, 0.5, 1) 0.1s;
+  }
+  .js-ready .rule-accent.visible {
+    width: 2.5rem !important;
+  }
+
+  /* ===========================
+     ENHANCED CARD HOVERS
+  =========================== */
+  .speaker-card {
+    transition: transform 0.22s cubic-bezier(0.25, 1, 0.5, 1),
+                border-color 0.22s ease,
+                box-shadow 0.22s ease;
+  }
+  .speaker-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--warm-mid);
+    box-shadow: 0 14px 36px rgba(14,14,13,0.09);
+  }
+  .tier-card {
+    transition: transform 0.22s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.22s ease;
+  }
+  .tier-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(14,14,13,0.1);
+  }
+  .tier-card.featured:hover {
+    box-shadow: 0 14px 36px rgba(184,76,46,0.18);
+  }
+  .context-card {
+    transition: transform 0.22s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.22s ease;
+  }
+  .context-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 6px 20px rgba(14,14,13,0.07);
+  }
+
+  /* ===========================
+     CALLOUT BAR STAT ENTRANCE
+  =========================== */
+  .js-ready .speakers-callout-item .sc-num {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.45s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .js-ready .speakers-callout-item.callout-visible .sc-num {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===========================
+     REDUCED MOTION OVERRIDES
+  =========================== */
+  @media (prefers-reduced-motion: reduce) {
+    .js-ready .reveal,
+    .js-ready .reveal.visible {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .js-ready .rule-accent,
+    .js-ready .rule-accent.visible {
+      width: 2.5rem !important;
+      transition: none !important;
+    }
+    .js-ready .speakers-callout-item .sc-num,
+    .js-ready .speakers-callout-item.callout-visible .sc-num {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .speaker-card, .tier-card, .context-card {
+      transition: none !important;
+    }
+    .countdown-num { transition: none !important; }
+    #site-nav { transition: none !important; }
+  }
+
   /* === SOCIAL LINKS === */
   .footer-social {
     display: flex;
@@ -1104,6 +1286,25 @@
           <a href="#tickets" class="btn btn-primary">Get Tickets</a>
           <a href="#speaker-interest" class="btn btn-ghost" style="color:#f5f1ea;border-color:rgba(245,241,234,0.35);">Speaker Interest</a>
         </div>
+        <div id="hero-countdown" class="hero-countdown" aria-label="Time until event" aria-live="off">
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-days">--</span>
+            <span class="countdown-label">Days</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-hours">--</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-mins">--</span>
+            <span class="countdown-label">Mins</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-secs">--</span>
+            <span class="countdown-label">Secs</span>
+          </div>
+        </div>
+
         <div class="hero-event-bar" aria-label="Event details">
           <div class="hero-event-item">
             <span class="ev-label">Date</span>
@@ -1725,6 +1926,143 @@
 </div><!-- /coc-page -->
 
 <script>
+  // === ANIMATION INIT ===
+  (function() {
+    // Enable CSS animation hooks
+    document.documentElement.classList.add('js-ready');
+
+    // ── COUNTDOWN TIMER ──────────────────────────────────────────────
+    const EVENT_DATE = new Date('2026-10-03T14:00:00-05:00');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function updateCountdown() {
+      const diff = EVENT_DATE - Date.now();
+      const cdEl = document.getElementById('hero-countdown');
+      if (!cdEl) return;
+
+      if (diff <= 0) {
+        cdEl.innerHTML = '<div class="countdown-live">Live Now</div>';
+        return;
+      }
+
+      const days  = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins  = Math.floor((diff % 3600000)  / 60000);
+      const secs  = Math.floor((diff % 60000)    / 1000);
+
+      const secsEl = document.getElementById('cd-secs');
+      const minsEl = document.getElementById('cd-mins');
+      const hoursEl = document.getElementById('cd-hours');
+      const daysEl  = document.getElementById('cd-days');
+      if (!secsEl) return;
+
+      // Tick animation on the seconds digit
+      const prevSecs = secsEl.textContent;
+      const newSecs  = pad(secs);
+      if (prevSecs !== newSecs && prevSecs !== '--') {
+        secsEl.classList.add('tick');
+        if (mins !== parseInt(minsEl.textContent)) minsEl.classList.add('tick');
+        setTimeout(() => {
+          secsEl.textContent  = newSecs;
+          minsEl.textContent  = pad(mins);
+          hoursEl.textContent = pad(hours);
+          daysEl.textContent  = pad(days);
+          secsEl.classList.remove('tick');
+          minsEl.classList.remove('tick');
+        }, 110);
+      } else {
+        secsEl.textContent  = newSecs;
+        minsEl.textContent  = pad(mins);
+        hoursEl.textContent = pad(hours);
+        daysEl.textContent  = pad(days);
+      }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ── NAV SHADOW ON SCROLL ─────────────────────────────────────────
+    const siteNav = document.getElementById('site-nav');
+    if (siteNav) {
+      window.addEventListener('scroll', function() {
+        siteNav.classList.toggle('scrolled', window.scrollY > 8);
+      }, { passive: true });
+    }
+
+    // ── SCROLL REVEAL ────────────────────────────────────────────────
+    // Elements that get the fade-up reveal
+    const revealSelectors = [
+      '.pillar',
+      '.context-card',
+      '.panel-card',
+      '.speaker-card',
+      '.tier-card',
+      '.forum-box',
+      '.about-grid > .about-body',
+      '.about-grid > .about-aside',
+      '.why-body',
+      '.context-cards',
+      '.forum-header',
+    ];
+
+    // Staggered grid parents
+    const staggerParents = [
+      'pillars-grid', 'speakers-grid', 'tiers-grid',
+      'context-cards', 'panels-grid', 'forum-grid', 'about-grid',
+    ];
+
+    const fadeEls = [];
+    revealSelectors.forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => fadeEls.push(el));
+    });
+
+    fadeEls.forEach(el => {
+      const parent = el.parentElement;
+      if (parent) {
+        const inStagger = staggerParents.some(cls => parent.classList.contains(cls));
+        if (inStagger) {
+          const siblings = Array.from(parent.children).filter(c => fadeEls.includes(c));
+          const idx = siblings.indexOf(el);
+          if (idx > 0) el.style.transitionDelay = (idx * 0.09) + 's';
+        }
+      }
+      el.classList.add('reveal');
+    });
+
+    // Rule accent draw animation — same observer, no reveal class needed
+    const ruleEls = document.querySelectorAll('.rule-accent');
+
+    const revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+
+    fadeEls.forEach(el => revealObserver.observe(el));
+    ruleEls.forEach(el => revealObserver.observe(el));
+
+    // ── CALLOUT BAR STAT ENTRANCE ────────────────────────────────────
+    const calloutItems = document.querySelectorAll('.speakers-callout-item');
+    if (calloutItems.length) {
+      const calloutObserver = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          calloutItems.forEach(function(item, i) {
+            setTimeout(function() {
+              item.classList.add('callout-visible');
+            }, i * 110);
+          });
+          calloutObserver.disconnect();
+        }
+      }, { threshold: 0.4 });
+      calloutObserver.observe(calloutItems[0].closest('.speakers-callout'));
+    }
+
+  })();
+
   // === ROUTING ===
   function showCoC() {
     document.getElementById('main-site').classList.add('hidden');
