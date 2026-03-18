@@ -1008,6 +1008,48 @@
   .hero-inner > *:nth-child(4) { animation-delay: 0.35s; }
   .hero-inner > *:nth-child(5) { animation-delay: 0.45s; }
   .hero-inner > *:nth-child(6) { animation-delay: 0.52s; }
+
+  /* === SOCIAL LINKS === */
+  .footer-social {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .footer-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(245,241,234,0.5);
+    transition: color 0.18s ease, border-color 0.18s ease;
+    text-decoration: none;
+  }
+  .footer-social a:hover {
+    color: rgba(245,241,234,0.9);
+    border-color: rgba(245,241,234,0.4);
+    text-decoration: none;
+  }
+  .footer-social svg {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-inner-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
 </style>
 </head>
 <body>
@@ -1059,7 +1101,7 @@
         <h1>ANIMA: The American<br><em>Animation Forum</em></h1>
         <p class="hero-sub">A structured, moderated convening for educators, independent creators, and industry professionals examining the trajectory of American animation.</p>
         <div class="hero-ctas">
-          <a href="https://eventbrite.com/REPLACE_WITH_EVENTBRITE_LINK" target="_blank" rel="noopener" class="btn btn-primary">Get Tickets</a>
+          <a href="#tickets" class="btn btn-primary">Get Tickets</a>
           <a href="#speaker-interest" class="btn btn-ghost" style="color:#f5f1ea;border-color:rgba(245,241,234,0.35);">Speaker Interest</a>
         </div>
         <div class="hero-event-bar" aria-label="Event details">
@@ -1367,7 +1409,7 @@
             </ul>
           </div>
           <div class="tier-cta">
-            <a href="https://eventbrite.com/REPLACE_WITH_EVENTBRITE_LINK" target="_blank" rel="noopener" class="btn btn-ghost" style="width:100%;display:block;">Purchase — $5</a>
+            <a href="#contact" class="btn btn-ghost" style="width:100%;display:block;">Tickets Coming Soon</a>
           </div>
         </div>
         <div class="tier-card featured" role="listitem">
@@ -1383,7 +1425,7 @@
             </ul>
           </div>
           <div class="tier-cta">
-            <a href="https://eventbrite.com/REPLACE_WITH_EVENTBRITE_LINK" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;display:block;">Purchase — $10</a>
+            <a href="#contact" class="btn btn-primary" style="width:100%;display:block;">Tickets Coming Soon</a>
           </div>
         </div>
         <div class="tier-card" role="listitem">
@@ -1399,14 +1441,14 @@
             </ul>
           </div>
           <div class="tier-cta">
-            <a href="https://eventbrite.com/REPLACE_WITH_EVENTBRITE_LINK" target="_blank" rel="noopener" class="btn btn-outline-accent" style="width:100%;display:block;">Purchase — $15</a>
+            <a href="#contact" class="btn btn-outline-accent" style="width:100%;display:block;">Tickets Coming Soon</a>
           </div>
         </div>
       </div>
       <ul class="tickets-notes" role="list" aria-label="Ticket notes">
         <li>This is a closed virtual event. Access details will be emailed after purchase.</li>
         <li>The forum is recorded. Edited archives are provided according to ticket tier.</li>
-        <li>Refund and transfer terms apply — see <a href="/terms">Terms &amp; Refund Policy</a>.</li>
+        <li>Refund and transfer terms apply — contact us at <a href="mailto:contact@animaforum.com">contact@animaforum.com</a>.</li>
       </ul>
     </div>
   </section>
@@ -1492,7 +1534,7 @@
           <div class="mailing-box">
             <h4>Stay updated</h4>
             <p>Get speaker announcements, schedule updates, and ticket info sent directly to you.</p>
-            <a href="REPLACE_WITH_MAILING_LIST_LINK" target="_blank" rel="noopener" class="mailing-link">Join the mailing list →</a>
+            <a href="#contact" class="mailing-link">Join the mailing list →</a>
           </div>
         </div>
       </div>
@@ -1503,13 +1545,23 @@
   <footer id="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-inner">
-        <span class="footer-copy">© 2026 ANIMA Forum. All rights reserved.</span>
-        <nav class="footer-links" aria-label="Footer links">
-          <a href="/code-of-conduct" onclick="showCoC(); return false;">Code of Conduct</a>
-          <span aria-hidden="true">·</span>
-          <a href="/privacy">Privacy Policy</a>
-          <span aria-hidden="true">·</span>
-          <a href="/terms">Terms &amp; Refunds</a>
+        <div class="footer-inner-left">
+          <span class="footer-copy">© 2026 ANIMA Forum. All rights reserved.</span>
+          <nav class="footer-links" aria-label="Footer links">
+            <a href="/code-of-conduct" onclick="showCoC(); return false;">Code of Conduct</a>
+            <span aria-hidden="true">·</span>
+            <a href="mailto:contact@animaforum.com">Privacy Policy</a>
+            <span aria-hidden="true">·</span>
+            <a href="mailto:contact@animaforum.com">Terms &amp; Refunds</a>
+          </nav>
+        </div>
+        <nav class="footer-social" aria-label="Social media links">
+          <a href="https://www.tiktok.com/@anima_forum" target="_blank" rel="noopener" aria-label="ANIMA Forum on TikTok">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.79 1.53V6.76a4.85 4.85 0 0 1-1.02-.07z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/anima_forum/" target="_blank" rel="noopener" aria-label="ANIMA Forum on Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </a>
         </nav>
       </div>
     </div>
@@ -1521,7 +1573,7 @@
 <!-- ===================== CODE OF CONDUCT PAGE ===================== -->
 <div id="coc-page" aria-label="Code of Conduct page">
 
-  <nav id="site-nav" style="position:sticky;top:0;z-index:100;background:var(--paper);border-bottom:1px solid var(--border);">
+  <nav id="coc-nav" role="navigation" aria-label="Code of Conduct navigation" style="position:sticky;top:0;z-index:100;background:var(--paper);border-bottom:1px solid var(--border);">
     <div class="container">
       <div class="nav-inner">
         <button class="nav-brand" onclick="showMain()" style="background:none;border:none;cursor:pointer;font-family:var(--ff-head);font-weight:700;font-size:1.05rem;color:var(--ink);">
@@ -1536,7 +1588,7 @@
     <div class="container">
       <span class="section-label">Policy</span>
       <h1>Code of Conduct</h1>
-      <p class="coc-effective">Effective date: [Insert Date] &nbsp;·&nbsp; Applies to: ANIMA Forum events, Discord server, live sessions, and associated communications</p>
+      <p class="coc-effective">Effective date: March 18, 2026 &nbsp;·&nbsp; Applies to: ANIMA Forum events, Discord server, live sessions, and associated communications</p>
       <button class="coc-back" onclick="showMain()">← Back to main site</button>
     </div>
   </div>
@@ -1645,16 +1697,26 @@
     </div>
   </div>
 
-  <footer id="site-footer" role="contentinfo" style="background:#080807;color:rgba(245,241,234,0.4);padding:2rem 0;border-top:1px solid rgba(255,255,255,0.06);">
+  <footer id="coc-footer" role="contentinfo" style="background:#080807;color:rgba(245,241,234,0.4);padding:2rem 0;border-top:1px solid rgba(255,255,255,0.06);">
     <div class="container">
       <div class="footer-inner">
-        <span style="font-size:0.8rem;">© 2026 ANIMA Forum. All rights reserved.</span>
-        <nav class="footer-links" aria-label="Footer links">
-          <a href="/code-of-conduct" onclick="showCoC(); return false;" style="font-size:0.8rem;color:rgba(245,241,234,0.4);">Code of Conduct</a>
-          <span style="color:rgba(255,255,255,0.15);">·</span>
-          <a href="/privacy" style="font-size:0.8rem;color:rgba(245,241,234,0.4);">Privacy Policy</a>
-          <span style="color:rgba(255,255,255,0.15);">·</span>
-          <a href="/terms" style="font-size:0.8rem;color:rgba(245,241,234,0.4);">Terms &amp; Refunds</a>
+        <div class="footer-inner-left">
+          <span style="font-size:0.8rem;">© 2026 ANIMA Forum. All rights reserved.</span>
+          <nav class="footer-links" aria-label="Footer links">
+            <a href="/code-of-conduct" onclick="showCoC(); return false;" style="font-size:0.8rem;color:rgba(245,241,234,0.4);">Code of Conduct</a>
+            <span style="color:rgba(255,255,255,0.15);">·</span>
+            <a href="mailto:contact@animaforum.com" style="font-size:0.8rem;color:rgba(245,241,234,0.4);">Privacy Policy</a>
+            <span style="color:rgba(255,255,255,0.15);">·</span>
+            <a href="mailto:contact@animaforum.com" style="font-size:0.8rem;color:rgba(245,241,234,0.4);">Terms &amp; Refunds</a>
+          </nav>
+        </div>
+        <nav class="footer-social" aria-label="Social media links">
+          <a href="https://www.tiktok.com/@anima_forum" target="_blank" rel="noopener" aria-label="ANIMA Forum on TikTok">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.79 1.53V6.76a4.85 4.85 0 0 1-1.02-.07z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/anima_forum/" target="_blank" rel="noopener" aria-label="ANIMA Forum on Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </a>
         </nav>
       </div>
     </div>
@@ -1687,4 +1749,33 @@
     menu.classList.remove('open');
   }
 
-  // Close mobile menu on outsi
+  // Close mobile menu on outside click
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobile-menu');
+    const toggle = document.querySelector('.nav-toggle');
+    if (menu && menu.classList.contains('open') && !menu.contains(e.target) && !toggle.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
+
+  // Handle browser back/forward with CoC SPA routing
+  window.addEventListener('popstate', function() {
+    if (location.pathname === '/code-of-conduct') {
+      document.getElementById('main-site').classList.add('hidden');
+      document.getElementById('coc-page').classList.add('active');
+      window.scrollTo(0, 0);
+    } else {
+      document.getElementById('coc-page').classList.remove('active');
+      document.getElementById('main-site').classList.remove('hidden');
+      window.scrollTo(0, 0);
+    }
+  });
+
+  // Handle direct URL load of /code-of-conduct
+  if (location.pathname === '/code-of-conduct') {
+    document.getElementById('main-site').classList.add('hidden');
+    document.getElementById('coc-page').classList.add('active');
+  }
+</script>
+</body>
+</html>
