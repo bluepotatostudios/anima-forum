@@ -13,15 +13,18 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   
   :root {
-    --ink:       #0e0e0d;
-    --paper:     #f5f1ea;
-    --cream:     #ede9e0;
-    --warm-mid:  #c8b89a;
-    --accent:    #b84c2e;
-    --accent-dk: #8f3520;
-    --muted:     #6b6358;
-    --border:    #d4cfc6;
-    --rule:      rgba(14,14,13,0.12);
+    --ink:       #0d1f3c;   /* very dark navy - text */
+    --paper:     #fdf9f4;   /* warm white - main bg */
+    --cream:     #fef0e0;   /* light peach - alt sections */
+    --warm-mid:  #7dcfb6;   /* mint teal - was warm-mid */
+    --accent:    #f79256;   /* sandy orange - CTA buttons */
+    --accent-dk: #e07040;   /* dark orange - hover */
+    --muted:     #5a7c9e;   /* muted blue - body text */
+    --border:    #d8eaf0;   /* light blue-tint - borders */
+    --rule:      rgba(13,31,60,0.1);
+    --blue:      #00b2ca;   /* cyan - links/secondary accent */
+    --navy:      #1d4e89;   /* yale blue - hero/dark section bg */
+    --peach:     #fbd1a2;   /* light peach */
     --ff-head:   'Playfair Display', Georgia, serif;
     --ff-body:   'DM Sans', system-ui, sans-serif;
     --ff-mono:   'DM Mono', monospace;
@@ -48,7 +51,7 @@
   h4 { font-size: 1rem; font-weight: 600; font-family: var(--ff-body); letter-spacing: 0.08em; text-transform: uppercase; }
   p { margin-bottom: 1em; }
   p:last-child { margin-bottom: 0; }
-  a { color: var(--accent); text-decoration: none; }
+  a { color: var(--blue); text-decoration: none; }
   a:hover { text-decoration: underline; }
   ul { list-style: none; }
 
@@ -109,21 +112,58 @@
   .btn-outline-accent:hover { background: var(--accent); color: #fff; text-decoration: none; }
 
   /* ===========================
+     SITE WORDMARK
+  =========================== */
+  #site-wordmark {
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    overflow: hidden;
+    padding: 1.5rem clamp(1.25rem,5vw,2.5rem) 1.25rem;
+  }
+  .wordmark-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .wm-primary {
+    font-family: var(--ff-head);
+    font-weight: 700;
+    font-size: clamp(3.5rem, 11vw, 8.5rem);
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .wm-secondary {
+    font-family: var(--ff-head);
+    font-weight: 400;
+    font-size: clamp(3.5rem, 11vw, 8.5rem);
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  @media (max-width: 480px) {
+    .wm-primary, .wm-secondary { font-size: clamp(2.8rem, 14vw, 4rem); }
+  }
+
+  /* ===========================
      NAV
   =========================== */
   #site-nav {
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
     position: sticky;
     top: 0;
     z-index: 100;
-    background: var(--paper);
-    border-bottom: 1px solid var(--border);
     padding: 0;
   }
   .nav-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 56px;
+    height: 48px;
     gap: 1rem;
   }
   .nav-brand {
@@ -133,6 +173,7 @@
     color: var(--ink);
     white-space: nowrap;
     letter-spacing: -0.01em;
+    display: none;
   }
   .nav-brand span { color: var(--accent); }
   .nav-links {
@@ -196,15 +237,18 @@
   @media (max-width: 760px) {
     .nav-links { display: none; }
     .nav-toggle { display: flex; }
+    #site-wordmark .wm-primary,
+    #site-wordmark .wm-secondary { font-size: clamp(2.2rem, 10vw, 3.5rem); }
+    .nav-brand { display: flex !important; }
   }
 
   /* ===========================
      HERO
   =========================== */
   #hero {
-    background: var(--ink);
+    background: var(--navy);
     color: var(--paper);
-    padding: clamp(4rem, 10vw, 8rem) 0 clamp(3.5rem, 8vw, 6rem);
+    padding: 0;
     position: relative;
     overflow: hidden;
   }
@@ -213,10 +257,59 @@
     position: absolute;
     inset: 0;
     background-image:
-      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px),
-      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.02) 39px, rgba(255,255,255,0.02) 40px);
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.04) 39px, rgba(255,255,255,0.04) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px);
     pointer-events: none;
+    z-index: 0;
   }
+  .hero-nga {
+    display: grid;
+    grid-template-columns: 68fr 32fr;
+    min-height: 560px;
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+  }
+  .hero-left {
+    position: relative;
+    padding: clamp(3rem,8vw,6rem) clamp(1.5rem,5vw,4rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 560px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .hero-left-content { position: relative; z-index: 2; }
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    background: rgba(0,0,0,0.15);
+  }
+  .hero-side-card {
+    padding: 1.5rem 1.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .hero-side-card--countdown { background: rgba(0,0,0,0.2); }
+  .hero-side-card--accent { background: var(--accent); }
+  .hero-side-card--accent .hsc-label { color: rgba(0,0,0,0.55); }
+  .hero-side-card--accent .hsc-text { color: rgba(0,0,0,0.75); font-size: 0.88rem; line-height: 1.6; }
+  .hero-side-card--accent .hsc-link { color: #000; font-weight: 600; font-size: 0.88rem; }
+  .hsc-label {
+    font-family: var(--ff-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+  }
+  .hsc-details { display: flex; flex-direction: column; gap: 0.5rem; }
+  .hsc-row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; font-size: 0.83rem; }
+  .hsc-key { color: rgba(244,254,253,0.5); font-family: var(--ff-mono); font-size: 0.65rem; letter-spacing: 0.08em; white-space: nowrap; }
+  .hsc-val { color: rgba(244,254,253,0.9); font-weight: 500; text-align: right; }
   .hero-eyebrow {
     font-family: var(--ff-mono);
     font-size: 0.72rem;
@@ -226,36 +319,30 @@
     margin-bottom: 1.5rem;
     display: block;
   }
-  #hero h1 {
-    color: var(--paper);
-    max-width: 740px;
-    margin-bottom: 0.3rem;
-  }
-  #hero h1 em {
-    font-style: italic;
-    color: var(--warm-mid);
-  }
+  #hero h1 { color: var(--paper); max-width: 600px; margin-bottom: 0.3rem; }
+  #hero h1 em { font-style: italic; color: var(--warm-mid); }
   .hero-sub {
-    font-size: clamp(1rem, 2vw, 1.15rem);
-    color: rgba(245,241,234,0.72);
-    max-width: 560px;
-    margin: 1.5rem 0 2.5rem;
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    color: rgba(244,254,253,0.72);
+    max-width: 520px;
+    margin: 1.25rem 0 2rem;
     line-height: 1.7;
   }
-  .hero-ctas {
-    display: flex;
-    gap: 0.85rem;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
-  }
+  .hero-ctas { display: flex; gap: 0.85rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
   .hero-note {
     font-family: var(--ff-mono);
-    font-size: 0.7rem;
+    font-size: 0.66rem;
     letter-spacing: 0.1em;
-    color: rgba(245,241,234,0.4);
+    color: rgba(244,254,253,0.35);
     text-transform: uppercase;
   }
   .hero-note span { margin: 0 0.6rem; opacity: 0.4; }
+
+  @media (max-width: 760px) {
+    .hero-nga { grid-template-columns: 1fr; }
+    .hero-right { flex-direction: row; overflow-x: auto; }
+    .hero-side-card { min-width: 220px; border-bottom: none; border-right: 1px solid rgba(255,255,255,0.1); }
+  }
 
   /* ===========================
      ABOUT
@@ -303,7 +390,7 @@
      PILLARS
   =========================== */
   #pillars {
-    background: var(--ink);
+    background: var(--navy);
     color: var(--paper);
     padding: var(--section-pad) 0;
   }
@@ -687,7 +774,7 @@
   /* ===========================
      CONTACT
   =========================== */
-  #contact { background: var(--ink); color: var(--paper); }
+  #contact { background: var(--navy); color: var(--paper); }
   #contact .section-label { color: var(--warm-mid); }
   #contact h2 { color: var(--paper); }
   .contact-grid {
@@ -734,10 +821,8 @@
      FOOTER
   =========================== */
   #site-footer {
-    background: #080807;
+    background: #0a1628;
     color: rgba(245,241,234,0.4);
-    padding: 2rem 0;
-    border-top: 1px solid rgba(255,255,255,0.06);
   }
   .footer-inner {
     display: flex;
@@ -771,7 +856,7 @@
   #coc-page.active { display: block; }
   #main-site.hidden { display: none; }
   .coc-header {
-    background: var(--ink);
+    background: var(--navy);
     color: var(--paper);
     padding: 4rem 0 3rem;
   }
@@ -998,16 +1083,6 @@
     from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  .hero-inner > * {
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-  }
-  .hero-inner > *:nth-child(1) { animation-delay: 0.05s; }
-  .hero-inner > *:nth-child(2) { animation-delay: 0.15s; }
-  .hero-inner > *:nth-child(3) { animation-delay: 0.25s; }
-  .hero-inner > *:nth-child(4) { animation-delay: 0.35s; }
-  .hero-inner > *:nth-child(5) { animation-delay: 0.45s; }
-  .hero-inner > *:nth-child(6) { animation-delay: 0.52s; }
 
   /* ===========================
      COUNTDOWN TIMER
@@ -1016,34 +1091,31 @@
     display: flex;
     align-items: stretch;
     gap: 0;
-    margin-bottom: 2rem;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
     border-radius: 3px;
     overflow: hidden;
-    max-width: 340px;
   }
   .countdown-unit {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.25rem;
-    padding: 0.85rem 1rem;
+    gap: 0.2rem;
+    padding: 0.7rem 0.5rem;
     flex: 1;
-    border-right: 1px solid rgba(255,255,255,0.08);
+    border-right: 1px solid rgba(255,255,255,0.1);
   }
   .countdown-unit:last-child { border-right: none; }
   .countdown-num {
     font-family: var(--ff-head);
-    font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+    font-size: clamp(1.4rem, 3vw, 2rem);
     font-weight: 700;
     color: var(--warm-mid);
     line-height: 1;
     letter-spacing: -0.02em;
     display: block;
-    min-width: 2ch;
     text-align: center;
-    transition: opacity 0.12s ease, transform 0.12s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: opacity 0.12s ease, transform 0.12s cubic-bezier(0.25,1,0.5,1);
   }
   .countdown-num.tick {
     opacity: 0.5;
@@ -1051,10 +1123,10 @@
   }
   .countdown-label {
     font-family: var(--ff-mono);
-    font-size: 0.52rem;
-    letter-spacing: 0.16em;
+    font-size: 0.48rem;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(245,241,234,0.38);
+    color: rgba(244,254,253,0.38);
   }
   .countdown-live {
     padding: 0.85rem 1.5rem;
@@ -1080,6 +1152,102 @@
     0%, 100% { opacity: 1; transform: scale(1); }
     50%       { opacity: 0.5; transform: scale(0.75); }
   }
+
+  /* ===========================
+     STICKY COUNTDOWN BAR
+  =========================== */
+  #sticky-countdown {
+    position: sticky;
+    top: 48px;
+    z-index: 99;
+    background: var(--navy);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 0.55rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease;
+  }
+  #sticky-countdown.visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .sc-label {
+    font-family: var(--ff-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+  .sc-units {
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+  }
+  .sc-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0.6rem;
+    border-right: 1px solid rgba(255,255,255,0.12);
+  }
+  .sc-unit:last-child { border-right: none; }
+  .sc-num {
+    font-family: var(--ff-head);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--warm-mid);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    transition: opacity 0.12s ease, transform 0.12s cubic-bezier(0.25,1,0.5,1);
+  }
+  .sc-num.tick { opacity: 0.5; transform: translateY(-2px); }
+  .sc-lbl {
+    font-family: var(--ff-mono);
+    font-size: 0.42rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+  .sc-cta {
+    font-family: var(--ff-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    white-space: nowrap;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+  }
+  .sc-cta:hover { background: var(--accent); color: #fff; text-decoration: none; }
+  @media (max-width: 480px) { .sc-label { display: none; } }
+
+  /* student discount note */
+  .hsc-discount { color: var(--warm-mid) !important; font-size: 0.78rem !important; }
+
+  /* ===========================
+     BLOB SCATTER DECORATION
+  =========================== */
+  .blob-scatter {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .blob-scatter svg { width: 100%; height: 100%; }
+  #about, #tickets { position: relative; overflow: hidden; }
+  #contact { position: relative; overflow: hidden; }
+  /* ensure section content sits above the blobs */
+  #about .container, #tickets .container, #contact .container { position: relative; z-index: 1; }
 
   /* ===========================
      NAV SHADOW ON SCROLL
@@ -1232,12 +1400,683 @@
     gap: 1.25rem;
     flex-wrap: wrap;
   }
+
+  /* ===========================
+     EFFECT 1: HERO COLOR ORBS
+  =========================== */
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+    will-change: transform;
+  }
+  .hero-orb-1 {
+    width: 520px; height: 520px;
+    background: #1d4e89;
+    opacity: 0.32;
+    top: -160px; right: -80px;
+    animation: orbFloat1 20s ease-in-out infinite;
+  }
+  .hero-orb-2 {
+    width: 420px; height: 420px;
+    background: #00b2ca;
+    opacity: 0.22;
+    bottom: -120px; left: -60px;
+    animation: orbFloat2 26s ease-in-out infinite;
+  }
+  .hero-orb-3 {
+    width: 280px; height: 280px;
+    background: #f79256;
+    opacity: 0.15;
+    top: 35%; left: 42%;
+    animation: orbFloat3 18s ease-in-out infinite;
+  }
+  @keyframes orbFloat1 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    33%      { transform: translate(-70px,50px) scale(1.08); }
+    66%      { transform: translate(40px,-35px) scale(0.94); }
+  }
+  @keyframes orbFloat2 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    40%      { transform: translate(60px,-50px) scale(1.1); }
+    70%      { transform: translate(-30px,40px) scale(1.04); }
+  }
+  @keyframes orbFloat3 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50%      { transform: translate(-50px,25px) scale(1.18); }
+  }
+
+  /* ===========================
+     EFFECT 2: FILM GRAIN TEXTURE
+  =========================== */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0.038;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 220px 220px;
+    mix-blend-mode: overlay;
+  }
+
+  /* ===========================
+     EFFECT 3: BRUSHSTROKE SVG
+  =========================== */
+  .hero-brush {
+    display: block;
+    width: clamp(280px, 60%, 500px);
+    height: 14px;
+    margin-top: -0.2rem;
+    margin-bottom: 1.5rem;
+    overflow: visible;
+  }
+  .hero-brush-path {
+    animation: drawBrush 1.4s cubic-bezier(0.25, 1, 0.5, 1) 0.7s forwards;
+  }
+  @keyframes drawBrush {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* ===========================
+     EFFECT 4: FILM SPROCKET STRIP
+  =========================== */
+  .hero-filmstrip {
+    position: absolute;
+    right: clamp(1rem, 4vw, 3rem);
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .hero-filmstrip svg {
+    width: 100%;
+    height: 100%;
+  }
+  @media (max-width: 680px) {
+    .hero-filmstrip { display: none; }
+  }
+
+  /* ===========================
+     EFFECT 5: SECTION COLOR SPLASHES
+  =========================== */
+  #about {
+    background: radial-gradient(ellipse 600px 400px at 95% 10%, rgba(251,209,162,0.25) 0%, transparent 70%), var(--paper);
+  }
+  #why-anima {
+    background: radial-gradient(ellipse 500px 350px at 5% 90%, rgba(125,207,182,0.18) 0%, transparent 65%), var(--paper);
+  }
+  #pillars {
+    background: radial-gradient(ellipse 700px 500px at 80% 50%, rgba(0,178,202,0.3) 0%, transparent 60%), var(--navy);
+  }
+  #forum-2026 {
+    background: radial-gradient(ellipse 400px 300px at 100% 0%, rgba(247,146,86,0.2) 0%, transparent 60%), var(--cream);
+  }
+
+  /* ===========================
+     REDUCED MOTION — NEW EFFECTS
+  =========================== */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-orb { animation: none !important; }
+    .hero-brush-path { animation: none !important; stroke-dashoffset: 0 !important; }
+    .orbFloat1, .orbFloat2, .orbFloat3 { animation: none !important; }
+  }
+
+  /* ===========================
+     FEATURE 1: ANNOUNCEMENT BAR
+  =========================== */
+  #announce-bar {
+    background: var(--navy);
+    color: rgba(255,255,255,0.88);
+    padding: 0.6rem 0;
+    font-size: 0.78rem;
+    font-family: var(--ff-mono);
+    letter-spacing: 0.06em;
+    position: relative;
+    z-index: 101;
+  }
+  .announce-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 5vw, 2.5rem);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+  .announce-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    animation: announcePulse 2s ease-in-out infinite;
+  }
+  @keyframes announcePulse {
+    0%,100% { opacity: 1; }
+    50%      { opacity: 0.4; }
+  }
+  .announce-text a {
+    color: var(--warm-mid);
+    text-decoration: underline;
+    text-decoration-color: rgba(125,207,182,0.4);
+  }
+  .announce-text a:hover { color: #fff; text-decoration-color: #fff; }
+  .announce-close {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 0 0 0 0.5rem;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .announce-close:hover { color: #fff; }
+
+  /* ===========================
+     FEATURE 2: SEARCH MODAL
+  =========================== */
+  .nav-search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    padding: 0.4rem;
+    display: flex;
+    align-items: center;
+    transition: color 0.15s;
+  }
+  .nav-search-btn:hover { color: var(--ink); }
+
+  #search-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+  }
+  #search-modal[hidden] { display: none; }
+  .search-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13,31,60,0.55);
+    backdrop-filter: blur(4px);
+  }
+  .search-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--paper);
+    padding: 2rem clamp(1.25rem,5vw,2.5rem);
+    box-shadow: 0 8px 40px rgba(13,31,60,0.18);
+    animation: searchSlideDown 0.25s cubic-bezier(0.25,1,0.5,1);
+  }
+  @keyframes searchSlideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  .search-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .search-label {
+    font-family: var(--ff-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .search-close {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: var(--muted);
+    line-height: 1;
+    padding: 0;
+  }
+  .search-close:hover { color: var(--ink); }
+  .search-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 2px solid var(--border);
+    border-radius: 3px;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.18s;
+  }
+  .search-input-wrap:focus-within { border-color: var(--blue); }
+  .search-input-wrap svg { color: var(--muted); flex-shrink: 0; }
+  .search-input {
+    border: none;
+    background: none;
+    font-family: var(--ff-body);
+    font-size: 1.05rem;
+    color: var(--ink);
+    width: 100%;
+    outline: none;
+  }
+  .search-input::placeholder { color: var(--muted); opacity: 0.6; }
+  .search-suggestions { margin-top: 1.25rem; }
+  .search-hint {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+    font-family: var(--ff-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .search-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .search-tag {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    font-size: 0.82rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 99px;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+  .search-tag:hover {
+    background: var(--navy);
+    color: #fff;
+    border-color: var(--navy);
+    text-decoration: none;
+  }
+
+  /* ===========================
+     FEATURE 3: PANEL CAROUSEL
+  =========================== */
+  .panels-carousel-wrap {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+  .panels-carousel {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .panels-carousel .panel-card {
+    min-width: 320px;
+    max-width: 360px;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+  .carousel-nav {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    justify-content: flex-end;
+  }
+  .carousel-btn {
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.18s;
+  }
+  .carousel-btn:hover {
+    background: var(--navy);
+    color: #fff;
+    border-color: var(--navy);
+  }
+
+  /* ===========================
+     FEATURE 4: FEATURED CAMPAIGN
+  =========================== */
+  #featured-campaign {
+    background: var(--navy);
+    color: var(--paper);
+    padding: 0;
+    overflow: hidden;
+  }
+  .campaign-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 420px;
+  }
+  .campaign-content {
+    padding: clamp(3rem,7vw,6rem) clamp(1.5rem,5vw,4rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .campaign-content .section-label { color: var(--warm-mid); }
+  .campaign-content h2 { color: var(--paper); margin-bottom: 0; }
+  .campaign-lead {
+    font-size: 1.05rem;
+    color: rgba(253,249,244,0.82);
+    line-height: 1.72;
+    margin-bottom: 1rem;
+  }
+  .campaign-body {
+    font-size: 0.93rem;
+    color: rgba(253,249,244,0.62);
+    line-height: 1.72;
+    margin-bottom: 2rem;
+  }
+  .campaign-cta { align-self: flex-start; }
+  .campaign-visual {
+    background: var(--blue);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .campaign-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 30% 50%, rgba(247,146,86,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 20%, rgba(29,78,137,0.6) 0%, transparent 60%);
+  }
+  .campaign-frame {
+    position: relative;
+    z-index: 1;
+    border: 2px solid rgba(255,255,255,0.2);
+    padding: 3rem;
+    border-radius: 4px;
+  }
+  .campaign-frame-inner {
+    text-align: center;
+    position: relative;
+  }
+  .campaign-year {
+    display: block;
+    font-family: var(--ff-head);
+    font-size: clamp(3rem,7vw,5rem);
+    font-weight: 700;
+    color: rgba(255,255,255,0.15);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .campaign-tag {
+    display: block;
+    font-family: var(--ff-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+  .campaign-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    align-items: center;
+  }
+  .cl {
+    height: 2px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 1px;
+  }
+  .cl-1 { width: 80px; }
+  .cl-2 { width: 52px; }
+  .cl-3 { width: 32px; }
+  @media (max-width: 680px) {
+    .campaign-inner { grid-template-columns: 1fr; }
+    .campaign-visual { min-height: 200px; }
+  }
+
+  /* ===========================
+     FEATURE 5: FROM THE FORUM
+  =========================== */
+  #from-the-forum { background: var(--paper); }
+  .ftf-header { margin-bottom: 2.5rem; }
+  .ftf-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+  }
+  .ftf-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: transform 0.22s cubic-bezier(0.25,1,0.5,1), box-shadow 0.22s ease;
+  }
+  .ftf-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(13,31,60,0.09);
+  }
+  .ftf-card--lead {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    background: var(--navy);
+    border-color: transparent;
+  }
+  .ftf-card--lead h3 { color: #fff; font-size: clamp(1.2rem,2.5vw,1.55rem); }
+  .ftf-card--lead p { color: rgba(255,255,255,0.9); font-size: 1rem; line-height: 1.72; }
+  .ftf-card--lead .ftf-link { color: var(--warm-mid); }
+  .ftf-card--lead .ftf-link:hover { color: #fff; text-decoration: none; }
+  .ftf-card--lead .ftf-card-tag { color: var(--accent); }
+  .ftf-card-tag {
+    font-family: var(--ff-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+  .ftf-card h3 { font-size: 1.1rem; color: var(--ink); margin: 0; }
+  .ftf-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.68; margin: 0; flex: 1; }
+  .ftf-link {
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--blue);
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .ftf-link:hover { text-decoration: underline; }
+  @media (max-width: 680px) {
+    .ftf-grid { grid-template-columns: 1fr; }
+    .ftf-card--lead { grid-row: auto; }
+  }
+
+  /* ===========================
+     FEATURE 6: EXPANDED FOOTER
+  =========================== */
+  #site-footer { background: #0a1628; color: rgba(253,249,244,0.7); }
+
+  .footer-newsletter {
+    background: var(--navy);
+    padding: 3rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .fnl-inner {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .fnl-heading {
+    font-family: var(--ff-head);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--paper);
+    margin-bottom: 0.3rem;
+  }
+  .fnl-sub { font-size: 0.88rem; color: rgba(253,249,244,0.6); margin: 0; }
+  .fnl-form { flex: 1; min-width: 280px; max-width: 440px; }
+  .fnl-input-wrap {
+    display: flex;
+    gap: 0;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    border-radius: 3px;
+    overflow: hidden;
+    transition: border-color 0.18s;
+  }
+  .fnl-input-wrap:focus-within { border-color: var(--warm-mid); }
+  .fnl-input {
+    flex: 1;
+    padding: 0.7rem 1rem;
+    background: rgba(255,255,255,0.06);
+    border: none;
+    color: var(--paper);
+    font-family: var(--ff-body);
+    font-size: 0.9rem;
+    outline: none;
+  }
+  .fnl-input::placeholder { color: rgba(253,249,244,0.4); }
+  .fnl-btn {
+    border-radius: 0;
+    padding: 0.7rem 1.25rem;
+    font-size: 0.85rem;
+    border: none;
+  }
+  .fnl-note { font-size: 0.73rem; color: rgba(253,249,244,0.35); margin: 0.5rem 0 0; font-family: var(--ff-mono); letter-spacing: 0.05em; }
+
+  .footer-main {
+    padding: 3.5rem 0 2.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .footer-cols {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 2.5rem;
+  }
+  .footer-brand { display: inline-block; margin-bottom: 0.85rem; }
+  .footer-tagline { font-size: 0.85rem; color: rgba(253,249,244,0.5); line-height: 1.6; max-width: 260px; margin-bottom: 1.25rem; }
+  .social-icon {
+    width: 34px; height: 34px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(253,249,244,0.6);
+    transition: all 0.18s;
+    text-decoration: none;
+  }
+  .social-icon:hover { background: var(--accent); border-color: var(--accent); color: #fff; text-decoration: none; }
+  .footer-col-heading {
+    font-family: var(--ff-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(253,249,244,0.4);
+    margin-bottom: 1rem;
+  }
+  .footer-col-links { display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col-links a {
+    font-size: 0.87rem;
+    color: rgba(253,249,244,0.65);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .footer-col-links a:hover { color: var(--paper); text-decoration: none; }
+
+  .footer-bottom {
+    padding: 1.25rem 0;
+  }
+  .footer-bottom .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.76rem;
+    color: rgba(253,249,244,0.3);
+    font-family: var(--ff-mono);
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 760px) {
+    .footer-cols { grid-template-columns: 1fr 1fr; }
+    .footer-col--brand { grid-column: 1 / -1; }
+    .fnl-inner { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .footer-cols { grid-template-columns: 1fr; }
+  }
+
+  /* ===========================
+     NGA-STYLE WIPE REVEAL
+  =========================== */
+  .js-ready .wipe {
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .js-ready .wipe.in {
+    clip-path: inset(0 0 0% 0);
+  }
+  .js-ready .wipe-img {
+    transform: scale(1.04);
+    opacity: 0;
+    transition: transform 1.1s cubic-bezier(0.16,1,0.3,1), opacity 0.7s ease;
+  }
+  .js-ready .wipe-img.in {
+    transform: scale(1);
+    opacity: 1;
+  }
+  /* Stagger for grid children */
+  .js-ready .pillars-grid .wipe:nth-child(2),
+  .js-ready .tiers-grid .wipe:nth-child(2),
+  .js-ready .ftf-grid .wipe:nth-child(2),
+  .js-ready .context-cards .wipe:nth-child(2),
+  .js-ready .speakers-grid .wipe:nth-child(2) { transition-delay: 0.1s; }
+  .js-ready .pillars-grid .wipe:nth-child(3),
+  .js-ready .tiers-grid .wipe:nth-child(3),
+  .js-ready .ftf-grid .wipe:nth-child(3),
+  .js-ready .context-cards .wipe:nth-child(3),
+  .js-ready .speakers-grid .wipe:nth-child(3) { transition-delay: 0.2s; }
+  .js-ready .speakers-grid .wipe:nth-child(4) { transition-delay: 0.3s; }
+  .js-ready .speakers-grid .wipe:nth-child(5) { transition-delay: 0.4s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js-ready .wipe { clip-path: inset(0 0 0% 0) !important; transition: none !important; }
+    .js-ready .wipe-img { transform: scale(1) !important; opacity: 1 !important; transition: none !important; }
+  }
 </style>
 </head>
 <body>
 
 <!-- ===================== MAIN SITE ===================== -->
 <div id="main-site">
+
+  <!-- SITE WORDMARK -->
+  <div id="site-wordmark" aria-hidden="true">
+    <div class="wordmark-inner">
+      <span class="wm-primary">ANIMA</span><span class="wm-secondary"> Forum</span>
+    </div>
+  </div>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div id="announce-bar" role="banner" aria-label="Site announcement">
+    <div class="announce-inner">
+      <span class="announce-dot" aria-hidden="true"></span>
+      <span class="announce-text">Speaker announcements coming Q3 2026 &nbsp;·&nbsp; <a href="#speaker-interest">Express speaker interest</a> &nbsp;·&nbsp; Forum: October 3, 2026</span>
+      <button class="announce-close" onclick="document.getElementById('announce-bar').style.display='none'" aria-label="Dismiss announcement">×</button>
+    </div>
+  </div>
 
   <!-- NAV -->
   <nav id="site-nav" role="navigation" aria-label="Main navigation">
@@ -1257,6 +2096,12 @@
           <li><a href="/code-of-conduct" onclick="showCoC(); return false;">Code of Conduct</a></li>
           <li><a href="#tickets" class="btn nav-cta">Get Tickets</a></li>
         </ul>
+        <button class="nav-search-btn" onclick="openSearch()" aria-label="Open search" aria-expanded="false" id="nav-search-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="10.5" y1="10.5" x2="14" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
         <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMobile()">
           <span></span><span></span><span></span>
         </button>
@@ -1275,57 +2120,93 @@
     </div>
   </nav>
 
+  <!-- STICKY COUNTDOWN BAR -->
+  <div id="sticky-countdown" aria-hidden="true">
+    <span class="sc-label">Oct 3, 2026 · Time Until Forum</span>
+    <div class="sc-units">
+      <div class="sc-unit"><span class="sc-num" id="scd-days">--</span><span class="sc-lbl">Days</span></div>
+      <div class="sc-unit"><span class="sc-num" id="scd-hours">--</span><span class="sc-lbl">Hours</span></div>
+      <div class="sc-unit"><span class="sc-num" id="scd-mins">--</span><span class="sc-lbl">Mins</span></div>
+      <div class="sc-unit"><span class="sc-num" id="scd-secs">--</span><span class="sc-lbl">Secs</span></div>
+    </div>
+    <a href="#tickets" class="sc-cta">Get Tickets →</a>
+  </div>
+
   <!-- HERO -->
   <section id="hero" aria-label="Hero">
-    <div class="container">
-      <div class="hero-inner">
-        <span class="hero-eyebrow">Inaugural Forum · October 3, 2026</span>
-        <h1>ANIMA: The American<br><em>Animation Forum</em></h1>
-        <p class="hero-sub">A structured, moderated convening for educators, independent creators, and industry professionals examining the trajectory of American animation.</p>
-        <div class="hero-ctas">
-          <a href="#tickets" class="btn btn-primary">Get Tickets</a>
-          <a href="#speaker-interest" class="btn btn-ghost" style="color:#f5f1ea;border-color:rgba(245,241,234,0.35);">Speaker Interest</a>
+    <div class="hero-nga">
+      <!-- LEFT: Main content panel (68%) -->
+      <div class="hero-left">
+        <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+        <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+        <div class="hero-orb hero-orb-3" aria-hidden="true"></div>
+        <div class="hero-filmstrip" aria-hidden="true">
+          <svg viewBox="0 0 40 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <rect x="0" y="0" width="40" height="400" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+            <line x1="8" y1="0" x2="8" y2="400" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+            <line x1="32" y1="0" x2="32" y2="400" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+            <rect x="2" y="12" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="12" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+            <rect x="2" y="36" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="36" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+            <rect x="2" y="60" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="60" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+            <rect x="2" y="84" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="84" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+            <rect x="2" y="108" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="108" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+            <rect x="2" y="132" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="132" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+            <rect x="2" y="156" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="156" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+            <rect x="2" y="180" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="180" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+            <rect x="2" y="204" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="204" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+            <rect x="2" y="228" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="228" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+            <rect x="2" y="252" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="252" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+            <rect x="2" y="276" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="276" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+            <rect x="2" y="300" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="300" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+            <rect x="2" y="324" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="324" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+            <rect x="2" y="348" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="348" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+            <rect x="2" y="372" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/><rect x="32" y="372" width="6" height="10" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+          </svg>
         </div>
-        <div id="hero-countdown" class="hero-countdown" aria-label="Time until event" aria-live="off">
-          <div class="countdown-unit">
-            <span class="countdown-num" id="cd-days">--</span>
-            <span class="countdown-label">Days</span>
+        <div class="hero-left-content">
+          <span class="hero-eyebrow wipe">Inaugural Forum · October 3, 2026</span>
+          <h1 class="wipe">ANIMA: The American<br><em>Animation Forum</em></h1>
+          <svg class="hero-brush wipe" viewBox="0 0 500 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
+            <path class="hero-brush-path" d="M4 7 C60 3, 120 11, 180 7 C240 3, 300 11, 360 7 C420 3, 460 10, 496 7" fill="none" stroke="#f79256" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="520" stroke-dashoffset="520"/>
+          </svg>
+          <p class="hero-sub wipe">A structured, moderated convening for educators, independent creators, and industry professionals examining the trajectory of American animation.</p>
+          <div class="hero-ctas wipe">
+            <a href="#tickets" class="btn btn-primary">Get Tickets</a>
+            <a href="#speaker-interest" class="btn btn-ghost" style="color:#f4fefd;border-color:rgba(244,254,253,0.35);">Speaker Interest</a>
           </div>
-          <div class="countdown-unit">
-            <span class="countdown-num" id="cd-hours">--</span>
-            <span class="countdown-label">Hours</span>
-          </div>
-          <div class="countdown-unit">
-            <span class="countdown-num" id="cd-mins">--</span>
-            <span class="countdown-label">Mins</span>
-          </div>
-          <div class="countdown-unit">
-            <span class="countdown-num" id="cd-secs">--</span>
-            <span class="countdown-label">Secs</span>
-          </div>
+          <p class="hero-note wipe">Closed virtual event<span>·</span>100–200 attendees<span>·</span>Recorded and archived</p>
         </div>
+      </div>
 
-        <div class="hero-event-bar" aria-label="Event details">
-          <div class="hero-event-item">
-            <span class="ev-label">Date</span>
-            <span class="ev-value">Saturday, Oct 3, 2026</span>
-          </div>
-          <div class="hero-event-item">
-            <span class="ev-label">Time</span>
-            <span class="ev-value">2:00 – 8:00 PM EST</span>
-          </div>
-          <div class="hero-event-item">
-            <span class="ev-label">Format</span>
-            <span class="ev-value">Virtual · Discord Stage</span>
-          </div>
-          <div class="hero-event-item">
-            <span class="ev-label">Tickets from</span>
-            <span class="ev-value">$5</span>
+      <!-- RIGHT: Stacked sidebar cards (32%) -->
+      <div class="hero-right">
+        <!-- Card 1: Countdown -->
+        <div class="hero-side-card hero-side-card--countdown wipe-img">
+          <div class="hsc-label">Time until forum</div>
+          <div id="hero-countdown" class="hero-countdown" aria-label="Time until event" aria-live="off">
+            <div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-label">Days</span></div>
+            <div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-label">Hours</span></div>
+            <div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-label">Mins</span></div>
+            <div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-label">Secs</span></div>
           </div>
         </div>
-        <p class="hero-note">
-          Closed virtual event<span>·</span>100–200 attendees<span>·</span>Recorded and archived
-        </p>
+        <!-- Card 2: Event details -->
+        <div class="hero-side-card wipe">
+          <div class="hsc-label">Event details</div>
+          <div class="hsc-details">
+            <div class="hsc-row"><span class="hsc-key">Date</span><span class="hsc-val">Saturday, Oct 3, 2026</span></div>
+            <div class="hsc-row"><span class="hsc-key">Time</span><span class="hsc-val">2:00 – 8:00 PM EST</span></div>
+            <div class="hsc-row"><span class="hsc-key">Format</span><span class="hsc-val">Virtual · Discord Stage</span></div>
+            <div class="hsc-row"><span class="hsc-key">Tickets from</span><span class="hsc-val"><strong>$5 – $15</strong></span></div>
+            <div class="hsc-row"><span class="hsc-key"></span><span class="hsc-val hsc-discount"><strong>Student discounts available</strong></span></div>
+          </div>
+        </div>
+        <!-- Card 3: Speaker interest CTA -->
+        <div class="hero-side-card hero-side-card--accent wipe">
+          <div class="hsc-label">Speaking at ANIMA</div>
+          <p class="hsc-text">Educators, independent creators, industry voices — apply to be part of the conversation.</p>
+          <a href="#speaker-interest" class="hsc-link">Submit interest →</a>
+        </div>
       </div>
     </div>
   </section>
@@ -1334,12 +2215,13 @@
 
   <!-- ABOUT -->
   <section id="about" aria-labelledby="about-title">
+    <div class="blob-scatter" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" opacity="0.11"><ellipse cx="1080" cy="80" rx="90" ry="80" fill="#e91e8c" transform="rotate(-12 1080 80)"/><ellipse cx="1150" cy="210" rx="75" ry="88" fill="#7b2d8b" transform="rotate(8 1150 210)"/><ellipse cx="1050" cy="360" rx="88" ry="76" fill="#00bcd4" transform="rotate(-6 1050 360)"/><ellipse cx="1140" cy="490" rx="80" ry="70" fill="#ff6d00" transform="rotate(14 1140 490)"/><ellipse cx="1050" cy="620" rx="84" ry="92" fill="#e040fb" transform="rotate(-10 1050 620)"/><ellipse cx="950" cy="140" rx="70" ry="62" fill="#f44336" transform="rotate(10 950 140)"/><ellipse cx="870" cy="300" rx="78" ry="66" fill="#76ff03" transform="rotate(-8 870 300)"/><ellipse cx="940" cy="460" rx="66" ry="78" fill="#ffeb3b" transform="rotate(6 940 460)"/><ellipse cx="860" cy="590" rx="72" ry="64" fill="#2196f3" transform="rotate(-12 860 590)"/><ellipse cx="760" cy="80" rx="60" ry="68" fill="#00e676" transform="rotate(8 760 80)"/><ellipse cx="740" cy="230" rx="68" ry="58" fill="#e91e8c" transform="rotate(-6 740 230)"/><ellipse cx="770" cy="420" rx="58" ry="70" fill="#7b2d8b" transform="rotate(12 770 420)"/><ellipse cx="750" cy="570" rx="72" ry="62" fill="#ff6d00" transform="rotate(-8 750 570)"/><circle cx="1000" cy="38" r="12" fill="#00bcd4"/><circle cx="1175" cy="310" r="9" fill="#76ff03"/><circle cx="905" cy="38" r="8" fill="#f44336"/><circle cx="830" cy="175" r="11" fill="#ffeb3b"/><circle cx="1095" cy="660" r="10" fill="#e91e8c"/><circle cx="815" cy="500" r="8" fill="#2196f3"/><circle cx="1175" cy="580" r="7" fill="#00e676"/><circle cx="680" cy="130" r="9" fill="#e040fb"/><circle cx="700" cy="320" r="7" fill="#f44336"/><circle cx="920" cy="385" r="6" fill="#e91e8c"/><circle cx="1015" cy="520" r="10" fill="#76ff03"/><circle cx="835" cy="660" r="8" fill="#ff6d00"/></svg></div>
     <div class="container">
-      <span class="section-label">About</span>
+      <span class="section-label wipe">About</span>
       <div class="about-grid">
-        <div class="about-body">
-          <h2 id="about-title">What is ANIMA?</h2>
-          <div class="rule-accent"></div>
+        <div class="about-body wipe">
+          <h2 id="about-title" class="wipe">What is ANIMA?</h2>
+          <div class="rule-accent wipe"></div>
           <p>ANIMA is a national forum dedicated to examining the artistic, economic, and structural future of American animation.</p>
           <p>By convening educators, independent creators, and industry professionals, ANIMA fosters focused dialogue on identity, sustainability, and global positioning within the animation arts. The goal is not promotion or advocacy — it is sustained, honest conversation about where American animation stands and where it should go.</p>
           <p>The forum is designed as a structured, moderated environment for thoughtful exchange, grounded in field experience, research, and cross-sector perspective.</p>
@@ -1362,7 +2244,7 @@
             </div>
           </div>
         </div>
-        <div class="about-aside">
+        <div class="about-aside wipe">
           <div class="about-box">
             <h4>Who ANIMA is for</h4>
             <ul role="list">
@@ -1389,20 +2271,20 @@
   <!-- PILLARS -->
   <section id="pillars" aria-labelledby="pillars-title">
     <div class="container">
-      <span class="section-label">Framework</span>
-      <h2 id="pillars-title">Three pillars of the forum</h2>
+      <span class="section-label wipe">Framework</span>
+      <h2 id="pillars-title" class="wipe">Three pillars of the forum</h2>
       <div class="pillars-grid" role="list">
-        <div class="pillar" role="listitem">
+        <div class="pillar wipe" role="listitem">
           <span class="pillar-num">01 — ARTISTIC IDENTITY</span>
           <h3>Artistic Identity</h3>
           <p>What defines American animation as a cultural art form? How does stylistic identity emerge, and what factors shape its development?</p>
         </div>
-        <div class="pillar" role="listitem">
+        <div class="pillar wipe" role="listitem">
           <span class="pillar-num">02 — INFRASTRUCTURE</span>
           <h3>Infrastructure &amp; Sustainability</h3>
           <p>How are creators supported within current systems? What structural conditions influence long-term artistic and economic viability?</p>
         </div>
-        <div class="pillar" role="listitem">
+        <div class="pillar wipe" role="listitem">
           <span class="pillar-num">03 — GLOBAL CONTEXT</span>
           <h3>Global Context</h3>
           <p>How does American animation participate in the international landscape? What lessons can be observed from other national animation ecosystems?</p>
@@ -1414,29 +2296,29 @@
   <!-- WHY ANIMA MATTERS -->
   <section id="why-anima" aria-labelledby="why-title">
     <div class="container">
-      <span class="section-label">Context</span>
+      <span class="section-label wipe">Context</span>
       <div class="why-grid">
         <div class="why-body">
-          <h2 id="why-title">Why this conversation, why now</h2>
-          <div class="rule-accent"></div>
+          <h2 id="why-title" class="wipe">Why this conversation, why now</h2>
+          <div class="rule-accent wipe"></div>
           <p>American animation is experiencing a period of significant structural upheaval. Simultaneous pressures — AI-generated imagery, streaming platform contraction, large-scale studio consolidation, and a widening gap between independent and corporate production — have created a field in which the fundamental questions of creative identity and economic sustainability are no longer abstract.</p>
           <p>These are questions about what gets made, who can keep making it, and what the medium communicates about American culture to the rest of the world. They deserve serious, sustained dialogue — not just industry panels, not just academic debate, but a space where those conversations happen together.</p>
           <p>ANIMA exists to be that space. Not to advocate for a particular answer, but to ensure the questions are asked with the rigor and honesty they require.</p>
         </div>
         <div class="context-cards">
-          <div class="context-card">
+          <div class="context-card wipe">
             <strong>AI &amp; Technological Disruption</strong>
             <p>Generative AI tools are reshaping production pipelines across the industry. What does this mean for animators, for craft, and for the definition of authorship in the medium?</p>
           </div>
-          <div class="context-card">
+          <div class="context-card wipe">
             <strong>Streaming Contraction &amp; Studio Consolidation</strong>
             <p>Major platforms have pulled back on animation investment. Studio mergers have concentrated creative decision-making. Independent production faces a more difficult landscape than it did five years ago.</p>
           </div>
-          <div class="context-card">
+          <div class="context-card wipe">
             <strong>Education &amp; the Pipeline</strong>
             <p>Animation programs are producing graduates entering an industry with fewer traditional entry points. How education adapts — and how the industry receives emerging talent — will shape the next generation of the form.</p>
           </div>
-          <div class="context-card">
+          <div class="context-card wipe">
             <strong>Global Positioning</strong>
             <p>National animation ecosystems in Japan, France, and South Korea have developed distinctive identities supported by dedicated infrastructure. How does the United States think about its animation culture at that scale?</p>
           </div>
@@ -1447,12 +2329,45 @@
 
   <hr class="divider">
 
+  <!-- FROM THE FORUM -->
+  <section id="from-the-forum" aria-labelledby="ftf-title">
+    <div class="container">
+      <span class="section-label wipe">Updates</span>
+      <div class="ftf-header">
+        <h2 id="ftf-title" class="wipe">From the Forum</h2>
+        <div class="rule-accent wipe"></div>
+      </div>
+      <div class="ftf-grid">
+        <article class="ftf-card ftf-card--lead wipe">
+          <div class="ftf-card-tag">Announcement</div>
+          <h3>Speaker Applications Now Open</h3>
+          <p>ANIMA is now accepting expressions of interest from educators, independent creators, industry professionals, critics, and researchers who want to be part of the inaugural forum conversation.</p>
+          <a href="#speaker-interest" class="ftf-link">Submit your interest →</a>
+        </article>
+        <article class="ftf-card wipe">
+          <div class="ftf-card-tag">Forum</div>
+          <h3>Why Discord Stage?</h3>
+          <p>We chose Discord Stage for its ability to support structured, moderated conversation at intimate scale — 100 to 200 attendees, not thousands. The platform allows real engagement without the noise of mass broadcast.</p>
+          <a href="#forum-2026" class="ftf-link">See the format →</a>
+        </article>
+        <article class="ftf-card wipe">
+          <div class="ftf-card-tag">Context</div>
+          <h3>The Industry Moment</h3>
+          <p>AI disruption, streaming platform contraction, studio consolidation, and a widening gap between independent and corporate production — 2026 is the right year to have this conversation.</p>
+          <a href="#why-anima" class="ftf-link">Read the context →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
   <!-- FORUM 2026 -->
   <section id="forum-2026" aria-labelledby="forum-title">
     <div class="container">
-      <span class="section-label">Forum 2026</span>
+      <span class="section-label wipe">Forum 2026</span>
       <div class="forum-header">
-        <h2 id="forum-title">ANIMA Forum 2026</h2>
+        <h2 id="forum-title" class="wipe">ANIMA Forum 2026</h2>
         <span class="forum-theme">"American Animation at a Crossroads: Art Form, Industry, or Both?"</span>
         <div class="forum-overview">
           <p>The inaugural ANIMA Forum examines the evolving relationship between artistic identity and production infrastructure in American animation. This is not a conference. It is a focused one-day conversation between people who care deeply about where this medium is going — and why it matters.</p>
@@ -1460,7 +2375,7 @@
         </div>
       </div>
       <div class="forum-grid">
-        <div class="forum-box">
+        <div class="forum-box wipe">
           <h4>Format</h4>
           <ul>
             <li>Fully virtual, closed registration</li>
@@ -1471,7 +2386,7 @@
             <li>5–6 hours total · 100–200 attendees</li>
           </ul>
         </div>
-        <div class="forum-box">
+        <div class="forum-box wipe">
           <h4>Schedule</h4>
           <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;">Approximate times — confirmed after speaker sign-off.</p>
           <div class="schedule-list" role="list">
@@ -1484,38 +2399,48 @@
           </div>
         </div>
       </div>
-      <div class="panels-grid" role="list" aria-label="Panel descriptions">
-        <div class="panel-card" role="listitem">
-          <span class="panel-num">P1</span>
-          <div>
-            <h3>Panel 1 — Identity &amp; Aesthetic</h3>
-            <p>Does American animation have a cohesive artistic identity? What shapes it, fragments it, or strengthens it — and who gets to define it?</p>
-            <span class="panel-tag">60–90 min · 2–3 speakers</span>
+      <div class="panels-carousel-wrap">
+        <div class="panels-carousel" role="list" aria-label="Panel descriptions">
+          <div class="panel-card wipe" role="listitem">
+            <span class="panel-num">P1</span>
+            <div>
+              <h3>Panel 1 — Identity &amp; Aesthetic</h3>
+              <p>Does American animation have a cohesive artistic identity? What shapes it, fragments it, or strengthens it — and who gets to define it?</p>
+              <span class="panel-tag">60–90 min · 2–3 speakers</span>
+            </div>
+          </div>
+          <div class="panel-card wipe" role="listitem">
+            <span class="panel-num">P2</span>
+            <div>
+              <h3>Panel 2 — Infrastructure &amp; Sustainability</h3>
+              <p>How do education, production realities, and economic incentives influence what gets made — and who can keep making it over a career?</p>
+              <span class="panel-tag">60–90 min · 2–3 speakers</span>
+            </div>
+          </div>
+          <div class="panel-card wipe" role="listitem">
+            <span class="panel-num">P3</span>
+            <div>
+              <h3>Panel 3 — Global Context</h3>
+              <p>What can be observed from other national animation ecosystems — Japan, France, South Korea — and how does the U.S. position itself culturally on the global stage?</p>
+              <span class="panel-tag">60–90 min · 2–3 speakers</span>
+            </div>
+          </div>
+          <div class="panel-card wipe" role="listitem">
+            <span class="panel-num">CR</span>
+            <div>
+              <h3>Closing Roundtable — Where Next?</h3>
+              <p>If American animation is at a crossroads, what road should it take over the next five years? All confirmed speakers + open Q&amp;A.</p>
+              <span class="panel-tag">60 min · All speakers</span>
+            </div>
           </div>
         </div>
-        <div class="panel-card" role="listitem">
-          <span class="panel-num">P2</span>
-          <div>
-            <h3>Panel 2 — Infrastructure &amp; Sustainability</h3>
-            <p>How do education, production realities, and economic incentives influence what gets made — and who can keep making it over a career?</p>
-            <span class="panel-tag">60–90 min · 2–3 speakers</span>
-          </div>
-        </div>
-        <div class="panel-card" role="listitem">
-          <span class="panel-num">P3</span>
-          <div>
-            <h3>Panel 3 — Global Context</h3>
-            <p>What can be observed from other national animation ecosystems — Japan, France, South Korea — and how does the U.S. position itself culturally on the global stage?</p>
-            <span class="panel-tag">60–90 min · 2–3 speakers</span>
-          </div>
-        </div>
-        <div class="panel-card" role="listitem">
-          <span class="panel-num">CR</span>
-          <div>
-            <h3>Closing Roundtable — Where Next?</h3>
-            <p>If American animation is at a crossroads, what road should it take over the next five years? All confirmed speakers + open Q&amp;A.</p>
-            <span class="panel-tag">60 min · All speakers</span>
-          </div>
+        <div class="carousel-nav" aria-label="Panel navigation">
+          <button class="carousel-btn" id="panels-prev" onclick="panelsScroll(-1)" aria-label="Previous panel">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="10,3 5,8 10,13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="carousel-btn" id="panels-next" onclick="panelsScroll(1)" aria-label="Next panel">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="6,3 11,8 6,13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </div>
       </div>
     </div>
@@ -1526,58 +2451,58 @@
   <!-- SPEAKERS -->
   <section id="speakers" aria-labelledby="speakers-title">
     <div class="container">
-      <span class="section-label">Speakers</span>
-      <h2 id="speakers-title">Speakers</h2>
-      <div class="rule-accent"></div>
+      <span class="section-label wipe">Speakers</span>
+      <h2 id="speakers-title" class="wipe">Speakers</h2>
+      <div class="rule-accent wipe"></div>
       <div class="speakers-callout" aria-label="Speaker program overview">
-        <div class="speakers-callout-item">
+        <div class="speakers-callout-item wipe">
           <span class="sc-num">5–7</span>
           <span class="sc-label">Featured Speakers</span>
         </div>
-        <div class="speakers-callout-item">
+        <div class="speakers-callout-item wipe">
           <span class="sc-num">4</span>
           <span class="sc-label">Sessions</span>
         </div>
-        <div class="speakers-callout-item">
+        <div class="speakers-callout-item wipe">
           <span class="sc-num">$100</span>
           <span class="sc-label">Honorarium / Speaker</span>
         </div>
-        <div class="speakers-callout-item">
+        <div class="speakers-callout-item wipe">
           <span class="sc-num">Oct 3</span>
           <span class="sc-label">Event Date</span>
         </div>
       </div>
       <p class="speakers-intro">Speaker announcements are forthcoming. ANIMA seeks voices from education, independent practice, industry, criticism, and international contexts — people willing to examine American animation honestly, including its failures, contradictions, and unanswered questions.</p>
       <div class="speakers-grid" role="list">
-        <div class="speaker-card" role="listitem">
+        <div class="speaker-card wipe" role="listitem">
           <div class="speaker-avatar">TBA</div>
           <h3>To be announced</h3>
           <span class="speaker-role">Animation Educator / Academic</span>
           <span class="speaker-panel">Panel 1 — Identity &amp; Aesthetic</span>
           <p class="speaker-bio">Details coming soon.</p>
         </div>
-        <div class="speaker-card" role="listitem">
+        <div class="speaker-card wipe" role="listitem">
           <div class="speaker-avatar">TBA</div>
           <h3>To be announced</h3>
           <span class="speaker-role">Independent Animator / Filmmaker</span>
           <span class="speaker-panel">Panel 2 — Infrastructure &amp; Sustainability</span>
           <p class="speaker-bio">Details coming soon.</p>
         </div>
-        <div class="speaker-card" role="listitem">
+        <div class="speaker-card wipe" role="listitem">
           <div class="speaker-avatar">TBA</div>
           <h3>To be announced</h3>
           <span class="speaker-role">Industry Professional</span>
           <span class="speaker-panel">Panel 2 — Infrastructure &amp; Sustainability</span>
           <p class="speaker-bio">Details coming soon.</p>
         </div>
-        <div class="speaker-card" role="listitem">
+        <div class="speaker-card wipe" role="listitem">
           <div class="speaker-avatar">TBA</div>
           <h3>To be announced</h3>
           <span class="speaker-role">International Perspective</span>
           <span class="speaker-panel">Panel 3 — Global Context</span>
           <p class="speaker-bio">Details coming soon.</p>
         </div>
-        <div class="speaker-card" role="listitem">
+        <div class="speaker-card wipe" role="listitem">
           <div class="speaker-avatar">TBA</div>
           <h3>To be announced</h3>
           <span class="speaker-role">Critic / Researcher</span>
@@ -1591,15 +2516,45 @@
 
   <hr class="divider">
 
+  <!-- FEATURED CAMPAIGN -->
+  <section id="featured-campaign" aria-labelledby="campaign-title">
+    <div class="campaign-inner">
+      <div class="campaign-content">
+        <span class="section-label wipe">The Conversation</span>
+        <h2 id="campaign-title" class="wipe">American Animation at a Crossroads</h2>
+        <div class="rule-accent wipe"></div>
+        <p class="campaign-lead">For decades, American animation has oscillated between art form and commodity. The industry is now at a structural inflection point — AI, streaming collapse, and a generation of artists asking harder questions.</p>
+        <p class="campaign-body">ANIMA creates the space that doesn't exist anywhere else: a structured, moderated dialogue between educators, independent creators, and industry voices willing to examine American animation honestly — including its failures, contradictions, and unanswered questions.</p>
+        <a href="#tickets" class="btn btn-primary campaign-cta">Join the Forum</a>
+      </div>
+      <div class="campaign-visual wipe-img" aria-hidden="true">
+        <div class="campaign-frame">
+          <div class="campaign-frame-inner">
+            <span class="campaign-year">2026</span>
+            <span class="campaign-tag">Oct 3</span>
+            <div class="campaign-lines">
+              <div class="cl cl-1"></div>
+              <div class="cl cl-2"></div>
+              <div class="cl cl-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
   <!-- TICKETS -->
   <section id="tickets" aria-labelledby="tickets-title">
+    <div class="blob-scatter" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice" opacity="0.10"><ellipse cx="100" cy="80" rx="80" ry="70" fill="#7b2d8b" transform="rotate(-15 100 80)"/><ellipse cx="50" cy="240" rx="70" ry="78" fill="#00bcd4" transform="rotate(8 50 240)"/><ellipse cx="120" cy="400" rx="84" ry="72" fill="#e91e8c" transform="rotate(-10 120 400)"/><ellipse cx="220" cy="140" rx="66" ry="58" fill="#ff6d00" transform="rotate(12 220 140)"/><ellipse cx="200" cy="340" rx="72" ry="80" fill="#76ff03" transform="rotate(-6 200 340)"/><ellipse cx="1060" cy="70" rx="82" ry="74" fill="#f44336" transform="rotate(10 1060 70)"/><ellipse cx="1130" cy="230" rx="76" ry="64" fill="#ffeb3b" transform="rotate(-8 1130 230)"/><ellipse cx="1050" cy="390" rx="80" ry="86" fill="#2196f3" transform="rotate(6 1050 390)"/><ellipse cx="960" cy="130" rx="68" ry="76" fill="#e040fb" transform="rotate(-12 960 130)"/><ellipse cx="980" cy="350" rx="74" ry="64" fill="#00e676" transform="rotate(8 980 350)"/><circle cx="310" cy="50" r="11" fill="#2196f3"/><circle cx="150" cy="470" r="9" fill="#ffeb3b"/><circle cx="40" cy="460" r="8" fill="#f44336"/><circle cx="280" cy="420" r="10" fill="#e040fb"/><circle cx="900" cy="50" r="9" fill="#76ff03"/><circle cx="1175" cy="440" r="11" fill="#e91e8c"/><circle cx="850" cy="460" r="8" fill="#00bcd4"/><circle cx="1090" cy="470" r="10" fill="#7b2d8b"/></svg></div>
     <div class="container">
-      <span class="section-label">Tickets</span>
-      <h2 id="tickets-title">Tickets</h2>
-      <div class="rule-accent"></div>
+      <span class="section-label wipe">Tickets</span>
+      <h2 id="tickets-title" class="wipe">Tickets</h2>
+      <div class="rule-accent wipe"></div>
       <p class="tickets-intro">Ticketing is designed to keep ANIMA accessible while maintaining a focused, committed audience.</p>
       <div class="tiers-grid" role="list">
-        <div class="tier-card" role="listitem">
+        <div class="tier-card wipe" role="listitem">
           <div class="tier-name">Student</div>
           <div class="tier-price">$5</div>
           <div class="tier-includes">
@@ -1613,7 +2568,7 @@
             <a href="#contact" class="btn btn-ghost" style="width:100%;display:block;">Tickets Coming Soon</a>
           </div>
         </div>
-        <div class="tier-card featured" role="listitem">
+        <div class="tier-card featured wipe" role="listitem">
           <span class="tier-badge">Most Popular</span>
           <div class="tier-name">Standard</div>
           <div class="tier-price">$10</div>
@@ -1629,7 +2584,7 @@
             <a href="#contact" class="btn btn-primary" style="width:100%;display:block;">Tickets Coming Soon</a>
           </div>
         </div>
-        <div class="tier-card" role="listitem">
+        <div class="tier-card wipe" role="listitem">
           <div class="tier-name">Professional</div>
           <div class="tier-price">$15</div>
           <div class="tier-includes">
@@ -1659,11 +2614,11 @@
   <!-- SPEAKER INTEREST -->
   <section id="speaker-interest" aria-labelledby="si-title">
     <div class="container">
-      <span class="section-label">Speak at ANIMA</span>
+      <span class="section-label wipe">Speak at ANIMA</span>
       <div class="interest-grid">
         <div class="interest-text">
-          <h2 id="si-title">Speaker Interest</h2>
-          <div class="rule-accent"></div>
+          <h2 id="si-title" class="wipe">Speaker Interest</h2>
+          <div class="rule-accent wipe"></div>
           <p>If you're interested in participating as a speaker at ANIMA Forum 2026, we'd love to hear from you. ANIMA seeks voices from across sectors — education, independent practice, industry, criticism, and international contexts.</p>
           <p>We are not programming a celebration. We are not seeking promotional appearances. We are looking for people willing to examine American animation honestly — including its failures, contradictions, and unanswered questions.</p>
           <p>Speaker confirmations will be announced publicly. All confirmed speakers receive a <strong>$100 honorarium</strong> and a 30-minute pre-event briefing call. Fully virtual — no travel required.</p>
@@ -1722,9 +2677,10 @@
 
   <!-- CONTACT -->
   <section id="contact" aria-labelledby="contact-title">
+    <div class="blob-scatter" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" opacity="0.18"><ellipse cx="60" cy="100" rx="72" ry="64" fill="#e91e8c" transform="rotate(-10 60 100)"/><ellipse cx="30" cy="280" rx="80" ry="68" fill="#00bcd4" transform="rotate(8 30 280)"/><ellipse cx="160" cy="60" rx="60" ry="70" fill="#ff6d00" transform="rotate(12 160 60)"/><ellipse cx="180" cy="320" rx="76" ry="64" fill="#e040fb" transform="rotate(-8 180 320)"/><ellipse cx="280" cy="170" rx="64" ry="74" fill="#76ff03" transform="rotate(6 280 170)"/><ellipse cx="1100" cy="80" rx="76" ry="66" fill="#7b2d8b" transform="rotate(-12 1100 80)"/><ellipse cx="1150" cy="260" rx="68" ry="80" fill="#ffeb3b" transform="rotate(10 1150 260)"/><ellipse cx="1020" cy="170" rx="70" ry="60" fill="#f44336" transform="rotate(-6 1020 170)"/><ellipse cx="1030" cy="340" rx="80" ry="70" fill="#2196f3" transform="rotate(8 1030 340)"/><ellipse cx="940" cy="80" rx="62" ry="72" fill="#00e676" transform="rotate(-10 940 80)"/><circle cx="380" cy="40" r="10" fill="#e91e8c"/><circle cx="320" cy="340" r="9" fill="#ffeb3b"/><circle cx="430" cy="370" r="8" fill="#2196f3"/><circle cx="840" cy="40" r="11" fill="#ff6d00"/><circle cx="880" cy="360" r="9" fill="#e040fb"/><circle cx="780" cy="180" r="8" fill="#00bcd4"/></svg></div>
     <div class="container">
-      <span class="section-label">Contact</span>
-      <h2 id="contact-title">Get in touch</h2>
+      <span class="section-label wipe">Contact</span>
+      <h2 id="contact-title" class="wipe">Get in touch</h2>
       <div class="contact-grid">
         <div>
           <p style="color:rgba(245,241,234,0.6);font-size:0.95rem;max-width:360px;">Questions, partnership inquiries, or press requests — reach out anytime.</p>
@@ -1744,29 +2700,101 @@
 
   <!-- FOOTER -->
   <footer id="site-footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-inner-left">
-          <span class="footer-copy">© 2026 ANIMA Forum. All rights reserved.</span>
-          <nav class="footer-links" aria-label="Footer links">
-            <a href="/code-of-conduct" onclick="showCoC(); return false;">Code of Conduct</a>
-            <span aria-hidden="true">·</span>
-            <a href="mailto:contact@animaforum.com">Privacy Policy</a>
-            <span aria-hidden="true">·</span>
-            <a href="mailto:contact@animaforum.com">Terms &amp; Refunds</a>
-          </nav>
+    <div class="footer-newsletter">
+      <div class="container">
+        <div class="fnl-inner">
+          <div class="fnl-text">
+            <h3 class="fnl-heading">Stay in the loop</h3>
+            <p class="fnl-sub">Announcements, speaker reveals, and forum updates — straight to your inbox.</p>
+          </div>
+          <form class="fnl-form" onsubmit="handleNewsletterSubmit(event)">
+            <div class="fnl-input-wrap">
+              <input type="email" id="fnl-email" class="fnl-input" placeholder="Your email address" required aria-label="Email address for newsletter">
+              <button type="submit" class="btn btn-primary fnl-btn">Subscribe</button>
+            </div>
+            <p class="fnl-note">No spam. Unsubscribe anytime.</p>
+          </form>
         </div>
-        <nav class="footer-social" aria-label="Social media links">
-          <a href="https://www.tiktok.com/@anima_forum" target="_blank" rel="noopener" aria-label="ANIMA Forum on TikTok">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.79 1.53V6.76a4.85 4.85 0 0 1-1.02-.07z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/anima_forum/" target="_blank" rel="noopener" aria-label="ANIMA Forum on Instagram">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-          </a>
-        </nav>
+      </div>
+    </div>
+    <div class="footer-main">
+      <div class="container">
+        <div class="footer-cols">
+          <div class="footer-col footer-col--brand">
+            <a href="#" class="nav-brand footer-brand"><span>ANIMA</span> Forum</a>
+            <p class="footer-tagline">A national forum examining the artistic and structural future of American animation.</p>
+            <div class="footer-social">
+              <a href="https://www.tiktok.com/@anima_forum" target="_blank" rel="noopener" aria-label="TikTok" class="social-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.88a8.27 8.27 0 0 0 4.84 1.54V7a4.85 4.85 0 0 1-1.07-.31z"/></svg>
+              </a>
+              <a href="https://www.instagram.com/anima_forum/" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-heading">Forum</h4>
+            <ul class="footer-col-links">
+              <li><a href="#about">About ANIMA</a></li>
+              <li><a href="#forum-2026">Forum 2026</a></li>
+              <li><a href="#speakers">Speakers</a></li>
+              <li><a href="#tickets">Tickets</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-heading">Get Involved</h4>
+            <ul class="footer-col-links">
+              <li><a href="#speaker-interest">Speaker Interest</a></li>
+              <li><a href="#supporters">Sponsorship</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-heading">Info</h4>
+            <ul class="footer-col-links">
+              <li><a href="/code-of-conduct" onclick="showCoC(); return false;">Code of Conduct</a></li>
+              <li><a href="/privacy">Privacy Policy</a></li>
+              <li><a href="/terms">Terms &amp; Refunds</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <span>© 2026 ANIMA Forum. All rights reserved.</span>
+        <span>An independent forum initiative. Produced by BluePotatoStudios.</span>
       </div>
     </div>
   </footer>
+
+  <!-- SEARCH MODAL -->
+  <div id="search-modal" role="dialog" aria-modal="true" aria-label="Search" hidden>
+    <div class="search-overlay" onclick="closeSearch()"></div>
+    <div class="search-panel">
+      <div class="search-header">
+        <label for="search-input" class="search-label">Search ANIMA Forum</label>
+        <button class="search-close" onclick="closeSearch()" aria-label="Close search">×</button>
+      </div>
+      <div class="search-input-wrap">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="10.5" y1="10.5" x2="14" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input type="search" id="search-input" class="search-input" placeholder="Search speakers, topics, sessions…" autocomplete="off">
+      </div>
+      <div class="search-suggestions">
+        <p class="search-hint">Try searching for:</p>
+        <div class="search-tags">
+          <a href="#speakers" onclick="closeSearch()" class="search-tag">Speakers</a>
+          <a href="#forum-2026" onclick="closeSearch()" class="search-tag">Panel Topics</a>
+          <a href="#tickets" onclick="closeSearch()" class="search-tag">Tickets</a>
+          <a href="#speaker-interest" onclick="closeSearch()" class="search-tag">Speaker Interest</a>
+          <a href="#about" onclick="closeSearch()" class="search-tag">About ANIMA</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div><!-- /main-site -->
 
@@ -1898,7 +2926,7 @@
     </div>
   </div>
 
-  <footer id="coc-footer" role="contentinfo" style="background:#080807;color:rgba(245,241,234,0.4);padding:2rem 0;border-top:1px solid rgba(255,255,255,0.06);">
+  <footer id="coc-footer" role="contentinfo" style="background:#0a1628;color:rgba(245,241,234,0.4);padding:2rem 0;border-top:1px solid rgba(255,255,255,0.06);">
     <div class="container">
       <div class="footer-inner">
         <div class="footer-inner-left">
@@ -1931,62 +2959,82 @@
     // Enable CSS animation hooks
     document.documentElement.classList.add('js-ready');
 
+    // === NGA WIPE REVEAL ===
+    var wipeObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          wipeObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.wipe, .wipe-img').forEach(function(el) {
+      wipeObserver.observe(el);
+    });
+
     // ── COUNTDOWN TIMER ──────────────────────────────────────────────
     const EVENT_DATE = new Date('2026-10-03T14:00:00-05:00');
 
     function pad(n) { return String(n).padStart(2, '0'); }
 
+    function setEl(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; }
+    function tickEl(id) { var el = document.getElementById(id); if (el) { el.classList.add('tick'); setTimeout(function(){ el.classList.remove('tick'); }, 120); } }
+
     function updateCountdown() {
-      const diff = EVENT_DATE - Date.now();
-      const cdEl = document.getElementById('hero-countdown');
-      if (!cdEl) return;
+      var diff = EVENT_DATE - Date.now();
+      var cdEl = document.getElementById('hero-countdown');
 
       if (diff <= 0) {
-        cdEl.innerHTML = '<div class="countdown-live">Live Now</div>';
+        if (cdEl) cdEl.innerHTML = '<div class="countdown-live">Live Now</div>';
         return;
       }
 
-      const days  = Math.floor(diff / 86400000);
-      const hours = Math.floor((diff % 86400000) / 3600000);
-      const mins  = Math.floor((diff % 3600000)  / 60000);
-      const secs  = Math.floor((diff % 60000)    / 1000);
+      var days  = Math.floor(diff / 86400000);
+      var hours = Math.floor((diff % 86400000) / 3600000);
+      var mins  = Math.floor((diff % 3600000)  / 60000);
+      var secs  = Math.floor((diff % 60000)    / 1000);
 
-      const secsEl = document.getElementById('cd-secs');
-      const minsEl = document.getElementById('cd-mins');
-      const hoursEl = document.getElementById('cd-hours');
-      const daysEl  = document.getElementById('cd-days');
+      var secsEl = document.getElementById('cd-secs');
       if (!secsEl) return;
 
-      // Tick animation on the seconds digit
-      const prevSecs = secsEl.textContent;
-      const newSecs  = pad(secs);
+      var prevSecs = secsEl.textContent;
+      var newSecs  = pad(secs);
       if (prevSecs !== newSecs && prevSecs !== '--') {
-        secsEl.classList.add('tick');
-        if (mins !== parseInt(minsEl.textContent)) minsEl.classList.add('tick');
-        setTimeout(() => {
-          secsEl.textContent  = newSecs;
-          minsEl.textContent  = pad(mins);
-          hoursEl.textContent = pad(hours);
-          daysEl.textContent  = pad(days);
-          secsEl.classList.remove('tick');
-          minsEl.classList.remove('tick');
+        tickEl('cd-secs'); tickEl('scd-secs');
+        if (mins !== parseInt(document.getElementById('cd-mins').textContent)) {
+          tickEl('cd-mins'); tickEl('scd-mins');
+        }
+        setTimeout(function() {
+          setEl('cd-days',  pad(days));  setEl('scd-days',  pad(days));
+          setEl('cd-hours', pad(hours)); setEl('scd-hours', pad(hours));
+          setEl('cd-mins',  pad(mins));  setEl('scd-mins',  pad(mins));
+          setEl('cd-secs',  newSecs);    setEl('scd-secs',  newSecs);
         }, 110);
       } else {
-        secsEl.textContent  = newSecs;
-        minsEl.textContent  = pad(mins);
-        hoursEl.textContent = pad(hours);
-        daysEl.textContent  = pad(days);
+        setEl('cd-days',  pad(days));  setEl('scd-days',  pad(days));
+        setEl('cd-hours', pad(hours)); setEl('scd-hours', pad(hours));
+        setEl('cd-mins',  pad(mins));  setEl('scd-mins',  pad(mins));
+        setEl('cd-secs',  newSecs);    setEl('scd-secs',  newSecs);
       }
     }
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    // ── NAV SHADOW ON SCROLL ─────────────────────────────────────────
-    const siteNav = document.getElementById('site-nav');
-    if (siteNav) {
+    // ── NAV SHADOW + STICKY COUNTDOWN ON SCROLL ──────────────────────
+    var siteNav = document.getElementById('site-nav');
+    var stickyCD = document.getElementById('sticky-countdown');
+    var heroSection = document.getElementById('hero');
+    if (siteNav || stickyCD) {
       window.addEventListener('scroll', function() {
-        siteNav.classList.toggle('scrolled', window.scrollY > 8);
+        var scrollY = window.scrollY;
+        if (siteNav) siteNav.classList.toggle('scrolled', scrollY > 8);
+        if (stickyCD && heroSection) {
+          var heroBottom = heroSection.getBoundingClientRect().bottom;
+          var show = heroBottom < 48; // hero has scrolled out from under nav
+          stickyCD.classList.toggle('visible', show);
+          stickyCD.setAttribute('aria-hidden', show ? 'false' : 'true');
+        }
       }, { passive: true });
     }
 
@@ -2113,6 +3161,40 @@
   if (location.pathname === '/code-of-conduct') {
     document.getElementById('main-site').classList.add('hidden');
     document.getElementById('coc-page').classList.add('active');
+  }
+
+  // === SEARCH MODAL ===
+  function openSearch() {
+    const modal = document.getElementById('search-modal');
+    modal.removeAttribute('hidden');
+    document.getElementById('nav-search-btn').setAttribute('aria-expanded', 'true');
+    setTimeout(() => document.getElementById('search-input').focus(), 100);
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSearch() {
+    const modal = document.getElementById('search-modal');
+    modal.setAttribute('hidden', '');
+    document.getElementById('nav-search-btn').setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeSearch();
+  });
+
+  // === PANEL CAROUSEL ===
+  function panelsScroll(dir) {
+    const carousel = document.querySelector('.panels-carousel');
+    if (carousel) carousel.scrollBy({ left: dir * 370, behavior: 'smooth' });
+  }
+
+  // === NEWSLETTER SUBMIT ===
+  function handleNewsletterSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.fnl-btn');
+    const input = e.target.querySelector('.fnl-input');
+    btn.textContent = '✓ Subscribed';
+    btn.disabled = true;
+    input.disabled = true;
   }
 </script>
 </body>
